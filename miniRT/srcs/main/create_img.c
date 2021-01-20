@@ -6,33 +6,23 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 21:03:35 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/17 13:54:33 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/19 23:44:43 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-t_ray	find_ray(t_cam *cam, int i, int j, t_scn *scn)
-{
-	t_vect	right;
-	t_vect	down;
-
-	right = mult(tan(cam->fov * M_PI / 360) * (j - scn->res.W / 2)/scn->res.W, cam->right);
-	down = mult(tan(cam->fov * M_PI / 360) * (i - scn->res.H / 2)/scn->res.W, cam->down);
-	return ((t_ray){cam->origin, normalize(sum(cam->dir, sum(right, down)))});
-}
-
 int		create_trgb(int t, int r, int g, int b)
 {
-	return(t << 24 | r << 16 | g << 8 | b);
+	return (t << 24 | r << 16 | g << 8 | b);
 }
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-    char    *dst;
+	char	*dst;
 
-    dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-    *(unsigned int*)dst = color;
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
 }
 
 t_rgb	get_color(t_scn *scn, t_ray ray, int rfi)
@@ -47,7 +37,7 @@ t_rgb	get_color(t_scn *scn, t_ray ray, int rfi)
 
 	res = collision_any(ray, scn, &coli, -1);
 	if (res.elem == NULL)
-		return (get_sky_coord(scn, ray));//();(t_rgb){0, 0, 0}
+		return (scn->sky.img ? get_sky_coord(scn, ray) : (t_rgb){0, 0, 0});
 	color = res.color;
 	coef = mult(scn->ambI/255, scn->ambCol);
 	ite = scn->lums;
@@ -69,6 +59,18 @@ t_rgb	get_color(t_scn *scn, t_ray ray, int rfi)
 		color = mixcolor(REFLECT, color, get_color(scn, ray, rfi - 1));
 	}
 	return (color);
+}
+
+t_ray	find_ray(t_cam *cam, int i, int j, t_scn *scn)
+{
+	t_vect	right;
+	t_vect	down;
+	double	coef_fov;
+
+	coef_fov = tan(cam->fov * M_PI / 360) / scn->res.W;
+	right = mult(coef_fov * (j - scn->res.W / 2), cam->right);
+	down = mult(coef_fov * (i - scn->res.H / 2), cam->down);
+	return ((t_ray){cam->origin, normalize(sum(cam->dir, sum(right, down)))});
 }
 
 void		fill_img(t_targs *args)

@@ -107,6 +107,8 @@ void	parse_file(t_scn *scn)
 			res = add_tri(split, scn);
 		else if (strcmp(split[0], "cub") == 0)
 			res = add_cub(split, scn);
+		else if (strcmp(split[0], "skybox") == 0)
+			res = set_sky(split, scn);
 		else
 			printf("-line : %s - ignored.\n", split[0]);
 		if (res != 0)
@@ -121,6 +123,8 @@ void	parse_file(t_scn *scn)
 		handle_error("no camera available", NO_CAMERA, scn);
 	if (!scn->res.W || !scn->res.H)
 		handle_error("no resolution", NO_RES, scn);
+	scn->actualcam = scn->cams;
+	scn->actuallum = scn->lums;
 }
 /*
 void	init_scn(t_scn *scn)

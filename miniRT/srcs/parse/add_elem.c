@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 13:36:56 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/15 18:57:50 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/19 23:23:38 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,15 @@ int		set_amblum(char **split, t_scn *scn)
 	scn->ambCol = tabto_lumrgb(splitcol);
 	ft_abort(splitcol);
 	return (0);
+}
+
+int		set_sky(char **split, t_scn *scn)
+{
+	if (scn->sky.img)
+		return (WRONG_LINE);
+	if (ft_tablen(split) != 2)
+		return (WRONG_LINE);
+	return (create_sky(scn, split[1]));
 }
 
 int		add_cam(char **split, t_scn *scn)

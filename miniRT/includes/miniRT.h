@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 20:40:00 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/17 13:50:06 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/19 23:17:21 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int				handle_error(char *msg, int err, t_scn *scn);
 int				get_keypress(int key, t_scn *scn);
 int				mouse_press(int button, int x, int y, t_scn *scn);
 
-t_data			create_sky(t_scn *scn, char *sky_path);
+int				create_sky(t_scn *scn, char *sky_path);
 t_rgb			get_sky_coord(t_scn *scn, t_ray ray);
 
 void			create_all_img(t_scn *scn);

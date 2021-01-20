@@ -11,7 +11,7 @@ SRCSS		= ${addprefix srcs/, ${SRCS}}
 
 OBJS		= ${SRCSS:.c=.o}
 
-CFLAGS		= -Wall -Wextra -I./includes -I/usr/include -Imlx_linux -lpthread -O0 -g
+CFLAGS		= -Wall -Wextra -Werror -I./includes -I/usr/include -Imlx_linux -lpthread -O0 -g
 
 all:		${NAME}
 

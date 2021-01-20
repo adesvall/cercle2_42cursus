@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 21:01:38 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/17 13:53:18 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/19 23:28:31 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	create_window(t_scn *scn)
 	printf("\033[0;32mCreating window...\n\033[0m");
 	if (!(scn->mlx_win = mlx_new_window(scn->mlx, scn->res.W, scn->res.H, "miniRT")))
 		handle_error("Fail to create Minilibx window", WINDOW_FAIL, scn);
-	scn->actualcam = scn->cams;
-	scn->actuallum = scn->lums;
 	scn->sl_obj.pos = &((t_cam*)scn->actualcam->content)->origin;
 	scn->sl_obj.dir = &((t_cam*)scn->actualcam->content)->dir;
 	printf("The actual Camera is selected.\n");
@@ -29,6 +27,8 @@ void	create_window(t_scn *scn)
 	mlx_hook(scn->mlx_win, ClientMessage, NoEventMask, exit_and_free, scn);
 	mlx_key_hook(scn->mlx_win, get_keypress, scn);
 	mlx_put_image_to_window(scn->mlx, scn->mlx_win, ((t_cam*)scn->actualcam->content)->data.img, 0, 0);
+	//mlx_put_image_to_window(scn->mlx, scn->mlx_win, scn->sky.img, 0, 0);
+
 	mlx_loop(scn->mlx);
 }
 
@@ -79,15 +79,14 @@ int		main(int argc, char **argv)
 	}
 	ft_bzero(&scn, sizeof(t_scn));
     scn.filename = argv[1];
-	parse_file(&scn);
     scn.mlx = mlx_init();
+	parse_file(&scn);
 	printf("\033[0;32mRendering miniRT...\n\033[0m");
-	create_sky(&scn, "skybox2_ny.xpm");
     create_all_img(&scn);
 	if (argc == 3 && !ft_strcmp(argv[2], "-save"))
 	{
 		printf("Saving to save.bmp ..\n");
-		save_bmp("save.bmp", (unsigned char*)((t_cam*)scn.actualcam->content)->data.addr, &scn);
+		save_bmp("save.bmp", (unsigned char*)((t_cam*)scn.cams->content)->data.addr, &scn);
 		exit_and_free(&scn);
 	}
     else if (argc == 2)
