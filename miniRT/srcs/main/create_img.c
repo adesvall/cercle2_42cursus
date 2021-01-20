@@ -35,6 +35,9 @@ t_rgb	get_color(t_scn *scn, t_ray ray, int rfi)
 	t_list	*ite;
 	t_lum	*lum;
 
+	t_vect	lumdir;
+	double	dmax;
+
 	res = collision_any(ray, scn, &coli, -1);
 	if (res.elem == NULL)
 		return (scn->sky.img ? get_sky_coord(scn, ray) : (t_rgb){0, 0, 0});
@@ -44,9 +47,11 @@ t_rgb	get_color(t_scn *scn, t_ray ray, int rfi)
 	while (ite)
 	{
 		lum = (t_lum*)ite->content;
-		if (collision_any((t_ray){coli, normalize(diff(lum->pos, coli))}, scn, 0, norm(diff(lum->pos, coli))).elem == NULL)
+		lumdir = lum->dir ? lum->vec : normalize(diff(lum->vec, coli));
+		dmax = lum->dir ? -1 : norm(diff(lum->pos, coli));
+		if (collision_any((t_ray){coli, lumdir}, scn, 0, dmax).elem == NULL)
 		{
-			c = lum->I/255 * normed_dot(res.normale, diff(lum->pos, coli)) * 1000 / pow(norm(diff(lum->pos, coli)), 2);
+			c = lum->I/255 * dot(res.normale, lumdir) * 1000 / pow(norm(diff(lum->pos, coli)), 2);
 			c = (c > 0) ? c : 0;
 			coef = sum(coef, mult(c, lum->color));
 		}

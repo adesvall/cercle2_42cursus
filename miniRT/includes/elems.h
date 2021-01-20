@@ -18,7 +18,8 @@
 
 typedef struct	s_lum
 {
-	t_vect	pos;
+	int		dir;
+	t_vect	vec;
 	double	I;
 	t_vect	color;
 }				t_lum;

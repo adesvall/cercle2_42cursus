@@ -17,7 +17,6 @@
 #ifndef MLX_INT_H
 
 # define MLX_INT_H
-
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>

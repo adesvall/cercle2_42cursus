@@ -89,10 +89,14 @@ void	parse_file(t_scn *scn)
 			res = set_res(split, scn);
 		else if (strcmp(split[0], "A") == 0)
 			res = set_amblum(split, scn);
+		else if (strcmp(split[0], "skybox") == 0)
+			res = set_sky(split, scn);
 		else if (strcmp(split[0], "c") == 0)
 			res = add_cam(split, scn);
 		else if (strcmp(split[0], "l") == 0)
-			res = add_lum(split, scn);
+			res = add_lum(split, scn, 0);
+		else if (strcmp(split[0], "ld") == 0)
+			res = add_lum(split, scn, 1);
 		else if (strcmp(split[0], "sp") == 0)
 			res = add_sph(split, scn);
 		else if (strcmp(split[0], "pl") == 0)
@@ -107,8 +111,6 @@ void	parse_file(t_scn *scn)
 			res = add_tri(split, scn);
 		else if (strcmp(split[0], "cub") == 0)
 			res = add_cub(split, scn);
-		else if (strcmp(split[0], "skybox") == 0)
-			res = set_sky(split, scn);
 		else
 			printf("-line : %s - ignored.\n", split[0]);
 		if (res != 0)

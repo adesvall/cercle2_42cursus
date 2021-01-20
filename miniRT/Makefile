@@ -11,17 +11,20 @@ SRCSS		= ${addprefix srcs/, ${SRCS}}
 
 OBJS		= ${SRCSS:.c=.o}
 
-CFLAGS		= -Wall -Wextra -Werror -I./includes -I/usr/include -Imlx_linux -lpthread -O0 -g
+OPENGL		= -lXext -lX11 -lm -lbsd
+CFLAGS		= -Wall -Wextra -Werror -Iincludes -Imlx_linux -lpthread -O0 -g 
 
 all:		${NAME}
 
 $(NAME):	${OBJS}
-			gcc -o ${NAME} ${OBJS} ${CFLAGS} -L.. -lmlx -L/usr/lib -lXext -lX11 -lm -lpthread -lbsd -g
+			make -C mlx_linux
+			gcc -o ${NAME} ${OBJS} ${CFLAGS} mlx_linux/libmlx.a $(OPENGL)
 
 .c.o:		
-			gcc ${CFLAGS} -c $< -o ${<:.c=.o}
+			gcc ${CFLAGS} $(OPENGL) -c $< -o ${<:.c=.o}
 
 clean:
+			make -C mlx_linux clean
 			rm -f ${OBJS}
 
 fclean:		clean
