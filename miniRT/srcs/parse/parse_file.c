@@ -91,6 +91,8 @@ void	parse_file(t_scn *scn)
 			res = set_amblum(split, scn);
 		else if (strcmp(split[0], "skybox") == 0)
 			res = set_sky(split, scn);
+		else if (strcmp(split[0], "antialiasing") == 0)
+			res = set_anti(split, scn);
 		else if (strcmp(split[0], "c") == 0)
 			res = add_cam(split, scn);
 		else if (strcmp(split[0], "l") == 0)

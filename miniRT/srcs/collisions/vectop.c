@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 20:51:54 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/14 17:32:44 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/20 18:46:31 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,15 @@ t_rgb	mult_col(double n, t_vect coef, t_rgb color)
 	return (color);
 }
 
-t_rgb	mixcolor(double reflect, t_rgb color, t_rgb reflectcol)
+t_rgb	sum_col(t_rgb c1, t_rgb c2)
+{
+	c1.r += c2.r;
+	c1.g += c2.g;
+	c1.b += c2.b;
+	return (c1);
+}
+
+t_rgb	add_reflect(double reflect, t_rgb color, t_rgb reflectcol)
 {
 	t_rgb res;
 

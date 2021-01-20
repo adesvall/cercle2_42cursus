@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:48:36 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/17 09:34:05 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/20 19:09:59 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct	s_cam
 	t_vect	right;
 	t_vect	down;
 	double 	fov;
+	double	coef_fov;
 }				t_cam;
 
 typedef struct	s_sel
@@ -107,10 +108,11 @@ typedef struct	s_scn
 {
 	void    	*mlx;
     void    	*mlx_win;
-	t_data		sky;
 	char		*filename;
+	int			antialiasing;
 	t_couple	res;
 	double 		ambI;
+	t_data		sky;
 	t_vect		ambCol;
 	t_list		*actualcam;
 	t_list		*actuallum;

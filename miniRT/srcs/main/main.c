@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 21:01:38 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/19 23:28:31 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/20 18:23:00 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,9 @@ void	set_sqr(t_sqr *sqr)
 	sqr->down = normalize(prod_vect(sqr->normale, sqr->right));
 }
 
-void	set_cam(t_cam *cam)
+void	set_cam(t_cam *cam, int resW)
 {
+	cam->coef_fov = tan(cam->fov * M_PI / 360) / resW;
 	if (cam->dir.x == 0 && cam->dir.y == 0)
 		cam->right = normalize((t_vect){0, -1, 0});
 	else

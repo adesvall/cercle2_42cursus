@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 13:36:56 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/19 23:23:38 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/20 18:17:54 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,17 @@ int		set_sky(char **split, t_scn *scn)
 	return (create_sky(scn, split[1]));
 }
 
+int		set_anti(char **split, t_scn *scn)
+{
+	if (scn->sky.img)
+		return (WRONG_LINE);
+	if (ft_tablen(split) != 2)
+		return (WRONG_LINE);
+	if ((scn->antialiasing = atoi(split[1])) >= 10 || scn->antialiasing < 0)
+		return (WRONG_ARG);
+	return (0);
+}
+
 int		add_cam(char **split, t_scn *scn)
 {
 	char	**spos;
@@ -88,7 +99,7 @@ int		add_cam(char **split, t_scn *scn)
 	return (0);
 }
 
-int 	add_lum(char **split, t_scn *scn)
+int 	add_lum(char **split, t_scn *scn, int dir)
 {
 	char	**spos;
 	char 	**srgb;
@@ -98,6 +109,7 @@ int 	add_lum(char **split, t_scn *scn)
 		return (WRONG_LINE);
 	if (!(lum = malloc(sizeof(t_lum))))
 		handle_error("Malloc failed", MALLOC_FAIL, scn);
+	ft_lstadd_front(&(scn->lums), ft_lstnew(lum));
 	spos = ft_split(split[1], ",");
 	lum->I = ft_atod(split[2]);
 	srgb = ft_split(split[3], ",");
@@ -105,14 +117,13 @@ int 	add_lum(char **split, t_scn *scn)
 	{
 		ft_abort(spos);
 		ft_abort(srgb);
-		free(lum);
 		return (WRONG_ARG);
 	}
-	lum->pos = tabto_vect(spos);
+	lum->vec = tabto_vect(spos);
 	lum->color = tabto_lumrgb(srgb);
+	lum->dir = dir;
 	ft_abort(spos);
 	ft_abort(srgb);
-	ft_lstadd_front(&(scn->lums), ft_lstnew(lum));
 	return (0);
 }
 

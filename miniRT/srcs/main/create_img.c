@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 21:03:35 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/19 23:44:43 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/20 19:57:39 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_rgb	get_color(t_scn *scn, t_ray ray, int rfi)
 
 	t_vect	lumdir;
 	double	dmax;
+	double	coefdist;
 
 	res = collision_any(ray, scn, &coli, -1);
 	if (res.elem == NULL)
@@ -47,11 +48,12 @@ t_rgb	get_color(t_scn *scn, t_ray ray, int rfi)
 	while (ite)
 	{
 		lum = (t_lum*)ite->content;
-		lumdir = lum->dir ? lum->vec : normalize(diff(lum->vec, coli));
-		dmax = lum->dir ? -1 : norm(diff(lum->pos, coli));
+		lumdir = lum->dir ? mult(-1, lum->vec) : normalize(diff(lum->vec, coli));
+		dmax = lum->dir ? -1 : norm(diff(lum->vec, coli));
+		coefdist = (dmax == -1) ? 1 : 1000 / pow(dmax, 2);
 		if (collision_any((t_ray){coli, lumdir}, scn, 0, dmax).elem == NULL)
 		{
-			c = lum->I/255 * dot(res.normale, lumdir) * 1000 / pow(norm(diff(lum->pos, coli)), 2);
+			c = lum->I/255 * dot(res.normale, lumdir) * coefdist;
 			c = (c > 0) ? c : 0;
 			coef = sum(coef, mult(c, lum->color));
 		}
@@ -61,27 +63,44 @@ t_rgb	get_color(t_scn *scn, t_ray ray, int rfi)
 	if (REFLECT > EPSILON && rfi > 0)
 	{
 		ray = (t_ray){coli, normalize(sum(ray.dir, mult(-2 * dot(ray.dir, res.normale), res.normale)))};
-		color = mixcolor(REFLECT, color, get_color(scn, ray, rfi - 1));
+		color = add_reflect(REFLECT, color, get_color(scn, ray, rfi - 1));
 	}
 	return (color);
 }
 
-t_ray	find_ray(t_cam *cam, int i, int j, t_scn *scn)
+t_ray	find_ray(t_cam *cam, double i, double j, t_scn *scn)
 {
 	t_vect	right;
 	t_vect	down;
-	double	coef_fov;
 
-	coef_fov = tan(cam->fov * M_PI / 360) / scn->res.W;
-	right = mult(coef_fov * (j - scn->res.W / 2), cam->right);
-	down = mult(coef_fov * (i - scn->res.H / 2), cam->down);
+	right = mult(cam->coef_fov * (j - scn->res.W / 2), cam->right);
+	down = mult(cam->coef_fov * (i - scn->res.H / 2), cam->down);
 	return ((t_ray){cam->origin, normalize(sum(cam->dir, sum(right, down)))});
+}
+
+t_rgb	raytrace(t_scn *scn, t_cam *cam, int i, int j)
+{
+	t_rgb	sumrgb;
+	t_ray	ray;
+	int		nr;
+	int		anti;
+
+	anti = scn->antialiasing + 1;
+	sumrgb = (t_rgb){0, 0, 0};
+	nr = 0;
+	while (nr < anti * anti)
+	{
+		ray = find_ray(cam, (double)i + (nr / anti - anti/2) / (double)anti,
+							(double)j + (nr % anti - anti/2) / (double)anti, scn);
+		sumrgb = sum_col(sumrgb, get_color(scn, ray, R_DEPTH));
+		nr++;
+	}
+	return (mult_col(1.0 / nr, (t_vect){1, 1, 1}, sumrgb));
 }
 
 void		fill_img(t_targs *args)
 {
 	t_rgb	color;
-	t_ray	ray;
 	int j;
 	int i;
 
@@ -91,8 +110,7 @@ void		fill_img(t_targs *args)
 		j=0;
 		while (j < args->scn->res.W)
 		{
-			ray = find_ray(args->cam, i + args->i, j, args->scn);
-			color = get_color(args->scn, ray, R_DEPTH);
+			color = raytrace(args->scn, args->cam, i + args->i, j);
 			my_mlx_pixel_put(&args->cam->data, j, i + args->i , create_trgb(0, color.r, color.g, color.b));
 			j++;
 		}
@@ -107,7 +125,7 @@ void	create_img(t_cam *cam, t_scn *scn)
 	pthread_t	t[4];
 	t_targs		arg[4];
 	
-	set_cam(cam);
+	set_cam(cam, scn->res.W);
 	//fill_img(&(t_targs){0, cam, scn});
 	nthr = 0;
 	while (nthr < 4)

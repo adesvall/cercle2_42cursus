@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 11:29:17 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/17 09:43:15 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/20 17:12:48 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	select_lum(t_scn *scn)
 	if ((scn->actuallum = scn->actuallum->next) == NULL)
 		scn->actuallum = scn->lums;
 	lum = scn->actuallum->content;
-	scn->sl_obj.pos = &lum->pos;
+	scn->sl_obj.pos = &lum->vec;
 	scn->sl_obj.dir = NULL;
 	scn->sl_obj.type = NULL;
 	printf("You selected Light at (%.0f,%.0f,%.0f).\n",

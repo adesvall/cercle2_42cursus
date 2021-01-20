@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 20:40:00 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/19 23:17:21 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/20 19:04:35 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ t_rgb			get_sky_coord(t_scn *scn, t_ray ray);
 
 void			create_all_img(t_scn *scn);
 void			create_img(t_cam *cam, t_scn *scn);
-void			set_cam(t_cam *cam);
+void			set_cam(t_cam *cam, int resw);
 void			set_sqr(t_sqr *sqr);
-t_ray			find_ray(t_cam *cam, int i, int j, t_scn *scn);
+t_ray			find_ray(t_cam *cam, double i, double j, t_scn *scn);
 
 void			fill_img(t_targs *args);
 t_rescl			collision_any(t_ray ray, t_scn *scn, t_vect *closest, double max);
@@ -81,8 +81,9 @@ void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void			save_bmp(const char *filename, const unsigned char *data, t_scn *scn);
 
 double			limit_color(double n);
+t_rgb			sum_col(t_rgb c1, t_rgb c2);
 t_rgb			mult_col(double n, t_vect coef, t_rgb color);
-t_rgb			mixcolor(double reflect, t_rgb color, t_rgb reflectcol);
+t_rgb			add_reflect(double reflect, t_rgb color, t_rgb reflectcol);
 int				egal_vect(t_vect v1, t_vect v2);
 t_vect			sum(t_vect v1, t_vect v2);
 void			translate(t_vect *v, double x, double y, double z);
