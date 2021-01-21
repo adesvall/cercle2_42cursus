@@ -59,6 +59,14 @@ int		set_sky(char **split, t_scn *scn)
 	return (create_sky(scn, split[1]));
 }
 
+int		set_filter(char c, t_cam *cam)
+{
+	if (c != 'R' && c != 'G' && c != 'B')
+		return (WRONG_ARG);
+	cam->filter = c;
+	return (0);
+}
+
 int		set_anti(char **split, t_scn *scn)
 {
 	if (scn->sky.img)
@@ -76,7 +84,7 @@ int		add_cam(char **split, t_scn *scn)
 	char 	**sdir;
 	t_cam	*cam;
 
-	if (ft_tablen(split) != 4)
+	if (ft_tablen(split) != 4 && ft_tablen(split) != 5)
 		return (WRONG_LINE);
 	if (!(cam = malloc(sizeof(t_cam))))
 		handle_error("Malloc failed", MALLOC_FAIL, scn);
@@ -96,6 +104,8 @@ int		add_cam(char **split, t_scn *scn)
 	cam->fov = ft_atod(split[3]);
 	if (norm(cam->dir) < EPSILON || cam->fov < EPSILON || cam->fov >= 180 - EPSILON)
 		return (WRONG_ARG);
+	if (ft_tablen(split) == 5)
+		return (set_filter(split[4][0], cam));
 	return (0);
 }
 
@@ -137,6 +147,7 @@ int 	add_sph(char **split, t_scn *scn)
 		return (WRONG_LINE);
 	if (!(sph = malloc(sizeof(t_sph))))
 		handle_error("Malloc failed", MALLOC_FAIL, scn);
+	ft_lstadd_front(&(scn->sphs), ft_lstnew(sph));
 	spos = ft_split(split[1], ",");
 	sph->radius = ft_atod(split[2]) / 2;
 	srgb = ft_split(split[3], ",");
@@ -144,15 +155,34 @@ int 	add_sph(char **split, t_scn *scn)
 	{
 		ft_abort(spos);
 		ft_abort(srgb);
-		free(sph);
 		return (WRONG_ARG);
 	}
 	sph->center = tabto_vect(spos);
 	sph->color = tabto_rgb(srgb);
 	ft_abort(spos);
 	ft_abort(srgb);
-	ft_lstadd_front(&(scn->sphs), ft_lstnew(sph));
 	return (0);
+}
+
+int		set_disruption(char *c, t_pln *pln)
+{
+	if (ft_strcmp(c, "checkered"))
+	{
+		pln->disruption = "check";
+		return (0);
+	}
+	if (ft_strcmp(c, "normal-disruption"))
+	{
+		pln->disruption = "normal";
+		return (0);
+	}
+	if (ft_strcmp(c, ""))
+	{
+		//creqtetexture
+		pln->disruption = "texture";
+		return (WRONG_ARG);
+	}
+	return (WRONG_ARG);
 }
 
 int 	add_pln(char **split, t_scn *scn)
@@ -162,10 +192,11 @@ int 	add_pln(char **split, t_scn *scn)
 	char 	**srgb;
 	t_pln	*pln;
 
-	if (ft_tablen(split) != 4)
+	if (ft_tablen(split) != 4 && ft_tablen(split) != 5)
 		return (WRONG_LINE);
 	if (!(pln = malloc(sizeof(t_pln))))
 		handle_error("Malloc failed", MALLOC_FAIL, scn);
+	ft_lstadd_front(&(scn->plns), ft_lstnew(pln));
 	spos = ft_split(split[1], ",");
 	sdir = ft_split(split[2], ",");
 	srgb = ft_split(split[3], ",");
@@ -174,7 +205,6 @@ int 	add_pln(char **split, t_scn *scn)
 		ft_abort(spos);
 		ft_abort(sdir);
 		ft_abort(srgb);
-		free(pln);
 		return (WRONG_ARG);
 	}
 	pln->origin = tabto_vect(spos);
@@ -183,7 +213,8 @@ int 	add_pln(char **split, t_scn *scn)
 	ft_abort(spos);
 	ft_abort(sdir);
 	ft_abort(srgb);
-	ft_lstadd_front(&(scn->plns), ft_lstnew(pln));
+	if (ft_tablen(split) == 5)
+		set_disruption(split[4], pln);
 	return (0);
 }
 

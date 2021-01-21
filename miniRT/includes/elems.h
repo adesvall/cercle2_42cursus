@@ -29,6 +29,7 @@ typedef	struct	s_pln
 	t_vect	origin;
 	t_vect	normale;
 	t_rgb	color;
+	char	disruption;
 }				t_pln;
 
 typedef struct	s_sqr	t_sqr;
@@ -93,6 +94,7 @@ typedef struct	s_cam
 	t_vect	right;
 	t_vect	down;
 	double 	fov;
+	char	filter;
 	double	coef_fov;
 }				t_cam;
 

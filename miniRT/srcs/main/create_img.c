@@ -12,6 +12,16 @@
 
 #include "../../includes/miniRT.h"
 
+t_rgb	filter(t_rgb rgb, char filter)
+{
+	if (filter == 0)
+		return (rgb);
+	rgb.r = filter == 'R' ? rgb.r : 0;
+	rgb.g = filter == 'G' ? rgb.g : 0;
+	rgb.b = filter == 'B' ? rgb.b : 0;
+	return (rgb);
+}
+
 int		create_trgb(int t, int r, int g, int b)
 {
 	return (t << 24 | r << 16 | g << 8 | b);
@@ -110,7 +120,7 @@ void		fill_img(t_targs *args)
 		j=0;
 		while (j < args->scn->res.W)
 		{
-			color = raytrace(args->scn, args->cam, i + args->i, j);
+			color = filter(raytrace(args->scn, args->cam, i + args->i, j), args->cam->filter);
 			my_mlx_pixel_put(&args->cam->data, j, i + args->i , create_trgb(0, color.r, color.g, color.b));
 			j++;
 		}

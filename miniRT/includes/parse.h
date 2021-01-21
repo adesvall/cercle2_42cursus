@@ -20,6 +20,7 @@ void	set_caps(t_cyl *cyl, t_dsk *dsk1, t_dsk *dsk2);
 int		set_res(char **split, t_scn *scn);
 int		set_amblum(char **split, t_scn *scn);
 int		set_sky(char **split, t_scn *scn);
+int		set_filter(char c, t_cam *cam);
 int		set_anti(char **split, t_scn *scn);
 int 	add_cam(char **split, t_scn *scn);
 int 	add_lum(char **split, t_scn *scn, int dir);
