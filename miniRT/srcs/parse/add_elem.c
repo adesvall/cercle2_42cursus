@@ -176,8 +176,9 @@ int		set_disruption(char *c, t_pln *pln)
 		pln->disruption = "normal";
 		return (0);
 	}
-	if (ft_strcmp(c, ""))
+	else
 	{
+	
 		//creqtetexture
 		pln->disruption = "texture";
 		return (WRONG_ARG);
