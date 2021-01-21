@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 11:29:17 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/20 17:12:48 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/21 18:54:10 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ void	move_vect(int key, t_vect *pos, t_vect *dir)
 void	move_selection(int key, t_scn *scn)
 {
 	t_cam	*cam;
-	t_cub	*cub;
 	t_cyl	*cyl;
 	
 	if (key != 100 && key != 122 && key != 115 && key != 65361 && key != 65363
@@ -140,10 +139,11 @@ void	move_selection(int key, t_scn *scn)
 			set_caps(cyl, cyl->dsks[0], cyl->dsks[1]);
 	}
 	if (!ft_strcmp(scn->sl_obj.type, "Cube"))
-	{	
-		cub = scn->sl_obj.elem;
-		set_faces(cub, cub->sqrs);
-	}
+		set_faces(scn->sl_obj.elem);
+	if (!ft_strcmp(scn->sl_obj.type, "Plane"))
+		set_pln(scn->sl_obj.elem);
+	if (!ft_strcmp(scn->sl_obj.type, "Square"))
+		set_sqr(scn->sl_obj.elem);
 	create_img((cam = scn->actualcam->content), scn);
 	mlx_put_image_to_window(scn->mlx, scn->mlx_win, cam->data.img, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:48:36 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/20 19:09:59 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/21 20:58:36 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@ typedef	struct	s_pln
 {
 	t_vect	origin;
 	t_vect	normale;
+	t_vect	right;
+	t_vect	down;
 	t_rgb	color;
 	char	disruption;
+	t_data	texture;
 }				t_pln;
 
 typedef struct	s_sqr	t_sqr;

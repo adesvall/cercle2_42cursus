@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 21:01:38 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/20 18:23:00 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/21 20:20:31 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,15 @@ void	create_all_img(t_scn *scn)
         create_img(cam, scn);
         ite = ite->next;
     }
+}
+
+void	set_pln(t_pln *pln)
+{
+	if (pln->normale.x == 0 && pln->normale.y == 0)
+		pln->right = (t_vect){1, 0, 0};
+	else
+		pln->right = normalize((t_vect){100 * pln->normale.y, -100 * pln->normale.x, 0});
+	pln->down = normalize(prod_vect(pln->normale, pln->right));
 }
 
 void	set_sqr(t_sqr *sqr)

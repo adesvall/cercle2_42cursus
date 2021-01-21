@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 20:51:54 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/20 18:46:31 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/21 20:24:36 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,14 +101,14 @@ double	norm(t_vect v)
 	return (sqrt(dot(v, v)));
 }
 
-double	normed_dot(t_vect v1, t_vect v2)
-{
-	return ((v1.x * v2.x + v1.y * v2.y + v1.z * v2.z) / norm(v1) / norm(v2));
-}
-
 t_vect	normalize(t_vect v)
 {
-	return (divn(norm(v), v));
+	double	n;
+
+	n = norm(v);
+	if (n < EPSILON)
+		return (v);
+	return (divn(n, v));
 }
 
 t_vect	prod_vect(t_vect v1, t_vect v2)
@@ -123,13 +123,17 @@ t_vect	prod_vect(t_vect v1, t_vect v2)
 
 t_vect	turn_vect(t_vect dir0, double angw, double angh)
 {
-	t_vect	tmp, res, axe;
+	t_vect	tmp;
+	t_vect	res;
+	t_vect	axe;
 
 	tmp = (t_vect){cos(angw) * dir0.x - sin(angw) * dir0.y,
 					sin(angw) * dir0.x + cos(angw) * dir0.y, dir0.z};
+	if (angh == 0)
+		return (tmp);
 	res = mult(cos(angh), tmp);
 	axe = (t_vect){-tmp.y, tmp.x, 0};
 	if (norm(axe) == 0)
-		return tmp;
+		axe = (t_vect){1, 0, 0};
 	return (normalize(sum(res, mult(sin(angh), prod_vect(normalize(axe), tmp)))));
 }

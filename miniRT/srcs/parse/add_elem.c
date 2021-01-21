@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 13:36:56 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/20 18:17:54 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/21 21:15:03 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		set_res(char **split, t_scn *scn)
 {
 	int	newW;
 	int	newH;
-	
+
 	if (ft_tablen(split) != 3)
 		return (WRONG_LINE);
 	newW = ft_atoi(split[1]);
@@ -56,7 +56,7 @@ int		set_sky(char **split, t_scn *scn)
 		return (WRONG_LINE);
 	if (ft_tablen(split) != 2)
 		return (WRONG_LINE);
-	return (create_sky(scn, split[1]));
+	return (xpm_to_data(scn, &scn->sky, split[1]));
 }
 
 int		set_filter(char c, t_cam *cam)
@@ -164,24 +164,22 @@ int 	add_sph(char **split, t_scn *scn)
 	return (0);
 }
 
-int		set_disruption(char *c, t_pln *pln)
+int		set_disruption(char *c, t_pln *pln, t_scn *scn)
 {
-	if (ft_strcmp(c, "checkered"))
+	if (!ft_strcmp(c, "checkered"))
 	{
-		pln->disruption = "check";
+		pln->disruption = 'c';
 		return (0);
 	}
-	if (ft_strcmp(c, "normal-disruption"))
+	else if (!ft_strcmp(c, "normal-sine"))
 	{
-		pln->disruption = "normal";
+		pln->disruption = 'n';
 		return (0);
 	}
 	else
 	{
-	
-		//creqtetexture
-		pln->disruption = "texture";
-		return (WRONG_ARG);
+		pln->disruption = 't';
+		return (xpm_to_data(scn, &pln->texture, c));
 	}
 	return (WRONG_ARG);
 }
@@ -214,8 +212,9 @@ int 	add_pln(char **split, t_scn *scn)
 	ft_abort(spos);
 	ft_abort(sdir);
 	ft_abort(srgb);
+	set_pln(pln);
 	if (ft_tablen(split) == 5)
-		set_disruption(split[4], pln);
+		set_disruption(split[4], pln, scn);
 	return (0);
 }
 
@@ -275,7 +274,8 @@ int		add_cub(char **split, t_scn *scn)
 	sdir = ft_split(split[2], ",");
 	cub->side = ft_atod(split[3]);
 	srgb = ft_split(split[4], ",");
-	if (ft_tablen(spos) != 3 || ft_tablen(sdir) != 3 || ft_tablen(srgb) != 3 || cub->side < EPSILON)
+	if (ft_tablen(spos) != 3 || ft_tablen(sdir) != 3
+				|| ft_tablen(srgb) != 3 || cub->side < EPSILON)
 	{
 		ft_abort(spos);
 		ft_abort(sdir);
@@ -291,7 +291,7 @@ int		add_cub(char **split, t_scn *scn)
 	if (norm(cub->dirs[0]) < EPSILON)
 		return (WRONG_ARG);
 	cub->dirs[0] = normalize(cub->dirs[0]);
-	set_faces(cub, cub->sqrs);
+	set_faces(cub);
 	return (0);
 }
 

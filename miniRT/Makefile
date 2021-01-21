@@ -4,8 +4,19 @@ SGNL		= get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 SLIB		= libft/libftutils.c libft/libftutils2.c libft/libftutils3.c
 
 SRCS		= main/main.c \
-			collisions/vectop.c main/create_img.c collisions/collision.c collisions/collisionany.c collisions/collisionutils.c \
-			parse/parse_file.c parse/parseutils.c main/events.c parse/add_elem.c main/save_bmp.c main/skybox.c ${SLIB} ${SGNL}
+			main/create_img.c \
+			main/save_bmp.c \
+			main/skybox.c \
+			collisions/collision.c \
+			collisions/collisionany.c \
+			collisions/collisionutils.c \
+			collisions/disruptions.c \
+			collisions/vectop.c \
+			parse/parse_file.c \
+			parse/parseutils.c \
+			main/events.c \
+			parse/add_elem.c \
+			${SLIB} ${SGNL} \
 
 SRCSS		= ${addprefix srcs/, ${SRCS}}
 

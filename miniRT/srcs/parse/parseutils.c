@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 16:55:11 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/15 18:57:50 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/21 18:53:32 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,12 @@ void	set_caps(t_cyl *cyl, t_dsk *dsk1, t_dsk *dsk2)
 	dsk2->normale = cyl->dir;
 }
 
-void	set_faces(t_cub *cub, t_sqr *sqrs[6])
+void	set_faces(t_cub *cub)
 {
-	int	i;
+	int		i;
+	t_sqr	**sqrs;
 
+	sqrs = cub->sqrs;
 	if (cub->dirs[0].x == 0 && cub->dirs[0].y == 0)
 		cub->dirs[1] = (t_vect){1, 0, 0};
 	else

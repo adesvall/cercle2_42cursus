@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 11:00:18 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/15 18:57:50 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/21 18:56:31 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 int		in_square(t_vect col, t_sqr sqr)
 {
-	double X, Y;
-	t_vect v;
+	double	X;
+	double	Y;
+	t_vect	v;
 
 	v = diff(col, sqr.origin);
 	X = dot(v, sqr.right);

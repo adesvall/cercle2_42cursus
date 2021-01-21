@@ -6,23 +6,20 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 19:37:30 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/19 23:31:19 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/21 21:27:17 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int			create_sky(t_scn *scn, char *sky_path)
+int			xpm_to_data(t_scn *scn, t_data *tex, char *path)
 {
-	t_data tex;
-
-	if (!(tex.img = mlx_xpm_file_to_image(scn->mlx, sky_path,
-		&tex.W, &tex.H)))
+	if (!(tex->img = mlx_xpm_file_to_image(scn->mlx, path,
+		&tex->W, &tex->H)))
 		return (IMG_FAIL);
-	if (!(tex.addr = mlx_get_data_addr(tex.img, &tex.bits_per_pixel,
-		&tex.line_length, &tex.endian)))
+	if (!(tex->addr = mlx_get_data_addr(tex->img, &tex->bits_per_pixel,
+		&tex->line_length, &tex->endian)))
 		return (IMG_FAIL);
-	scn->sky = tex;
 	return (0);
 }
 

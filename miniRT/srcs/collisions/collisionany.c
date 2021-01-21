@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 23:27:39 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/15 16:55:54 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/21 20:49:24 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ t_rescl		collision_any(t_ray ray, t_scn *scn, t_vect *closest, double dmax)
 		res.color = ((t_sph*)elem)->color;
 		res.pos = &((t_sph*)elem)->center;
 		res.dir = NULL;
+		if (dot(res.normale, ray.dir) > 0)
+			res.normale = mult(-1, res.normale);
 	}
 	if ((elem = collision_list_elem(ray, scn->plns, &col, &collision_pln)) != NULL && (res.elem == NULL || norm(diff(ray.origin, col)) < norm(diff(ray.origin, best))))
 	{
@@ -64,7 +66,10 @@ t_rescl		collision_any(t_ray ray, t_scn *scn, t_vect *closest, double dmax)
 		res.elem = elem;
 		res.type = "Plane";
 		res.normale = ((t_pln*)elem)->normale;
-		res.color = ((t_pln*)elem)->color;
+		if (dot(res.normale, ray.dir) > 0)
+			res.normale = mult(-1, res.normale);
+		res.normale = apply_normal_disruption(col, elem);
+		res.color = apply_texture(col, elem);
 		res.pos = &((t_pln*)elem)->origin;
 		res.dir = &((t_pln*)elem)->normale;
 	}
@@ -77,6 +82,8 @@ t_rescl		collision_any(t_ray ray, t_scn *scn, t_vect *closest, double dmax)
 		res.color = ((t_tri*)elem)->color;
 		res.pos = &((t_tri*)elem)->origin;
 		res.dir = NULL;
+		if (dot(res.normale, ray.dir) > 0)
+			res.normale = mult(-1, res.normale);
 	}
 	if ((elem = collision_list_elem(ray, scn->cyls, &col, &collision_cyl)) != NULL && (res.elem == NULL || norm(diff(ray.origin, col)) < norm(diff(ray.origin, best))))
 	{
@@ -87,6 +94,8 @@ t_rescl		collision_any(t_ray ray, t_scn *scn, t_vect *closest, double dmax)
 		res.color = ((t_cyl*)elem)->color;
 		res.pos = &((t_cyl*)elem)->origin;
 		res.dir = &((t_cyl*)elem)->dir;
+		if (dot(res.normale, ray.dir) > 0)
+			res.normale = mult(-1, res.normale);
 	}
 	if ((elem = collision_list_elem(ray, scn->dsks, &col, &collision_dsk)) != NULL && (res.elem == NULL || norm(diff(ray.origin, col)) < norm(diff(ray.origin, best))))
 	{
@@ -97,6 +106,8 @@ t_rescl		collision_any(t_ray ray, t_scn *scn, t_vect *closest, double dmax)
 		res.color = ((t_dsk*)elem)->color;
 		res.pos = &((t_dsk*)elem)->origin;
 		res.dir = &((t_dsk*)elem)->normale;
+		if (dot(res.normale, ray.dir) > 0)
+			res.normale = mult(-1, res.normale);
 	}
 	if ((elem = collision_list_elem(ray, scn->sqrs, &col, &collision_sqr)) != NULL && (res.elem == NULL || norm(diff(ray.origin, col)) < norm(diff(ray.origin, best))))
 	{
@@ -107,6 +118,8 @@ t_rescl		collision_any(t_ray ray, t_scn *scn, t_vect *closest, double dmax)
 		res.color = ((t_sqr*)elem)->color;
 		res.pos = &((t_sqr*)elem)->origin;
 		res.dir = &((t_sqr*)elem)->normale;
+		if (dot(res.normale, ray.dir) > 0)
+			res.normale = mult(-1, res.normale);
 	}
 	if (res.elem != NULL && dmax != -1 && norm(diff(best, ray.origin)) > dmax)
 	{
@@ -115,7 +128,5 @@ t_rescl		collision_any(t_ray ray, t_scn *scn, t_vect *closest, double dmax)
 	}
 	if (res.elem != NULL && closest)
 		*closest = best;
-	if (dot(res.normale, ray.dir) > 0)
-		res.normale = mult(-1, res.normale);
 	return (res);
 }
