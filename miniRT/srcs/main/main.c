@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 21:01:38 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/21 20:20:31 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/22 13:22:38 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	create_all_img(t_scn *scn)
 
 void	set_pln(t_pln *pln)
 {
-	if (pln->normale.x == 0 && pln->normale.y == 0)
+	if (fabs(pln->normale.x) < EPSILON && fabs(pln->normale.y) < EPSILON)
 		pln->right = (t_vect){1, 0, 0};
 	else
 		pln->right = normalize((t_vect){100 * pln->normale.y, -100 * pln->normale.x, 0});
@@ -61,7 +61,7 @@ void	set_pln(t_pln *pln)
 
 void	set_sqr(t_sqr *sqr)
 {
-	if (sqr->normale.x == 0 && sqr->normale.y == 0)
+	if (fabs(sqr->normale.x) < EPSILON && fabs(sqr->normale.y) < EPSILON)
 		sqr->right = (t_vect){1, 0, 0};
 	else
 		sqr->right = normalize((t_vect){100 * sqr->normale.y, -100 * sqr->normale.x, 0});
@@ -71,7 +71,7 @@ void	set_sqr(t_sqr *sqr)
 void	set_cam(t_cam *cam, int resW)
 {
 	cam->coef_fov = tan(cam->fov * M_PI / 360) / resW;
-	if (cam->dir.x == 0 && cam->dir.y == 0)
+	if (fabs(cam->dir.x) < EPSILON && fabs(cam->dir.y) < EPSILON)
 		cam->right = normalize((t_vect){0, -1, 0});
 	else
 		cam->right = normalize((t_vect){100*cam->dir.y, -100*cam->dir.x, 0});
@@ -88,7 +88,8 @@ int		main(int argc, char **argv)
 		exit(1);
 	}
 	ft_bzero(&scn, sizeof(t_scn));
-    scn.filename = argv[1];
+    if (!ft_strend_is(scn.filename = argv[1], ".rt"))
+		return (handle_error("not a .rt file", OPEN_FAIL, &scn));
     scn.mlx = mlx_init();
 	parse_file(&scn);
 	printf("\033[0;32mRendering miniRT...\n\033[0m");

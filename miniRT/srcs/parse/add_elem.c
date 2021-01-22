@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_elem.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 13:36:56 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/21 21:15:03 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/22 13:41:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,13 +137,28 @@ int 	add_lum(char **split, t_scn *scn, int dir)
 	return (0);
 }
 
+int 	set_sph_disruption(char *c, t_sph *sph, t_scn *scn)
+{
+	if (!ft_strcmp(c, "color-disr"))
+	{
+		sph->disruption = 'c';
+		return (0);
+	}
+	else
+	{
+		sph->disruption = 't';
+		return (xpm_to_data(scn, &sph->texture, c));
+	}
+	return (WRONG_ARG);
+}
+
 int 	add_sph(char **split, t_scn *scn)
 {
 	char	**spos;
 	char 	**srgb;
 	t_sph	*sph;
 
-	if (ft_tablen(split) != 4)
+	if (ft_tablen(split) != 4 && ft_tablen(split) != 5)
 		return (WRONG_LINE);
 	if (!(sph = malloc(sizeof(t_sph))))
 		handle_error("Malloc failed", MALLOC_FAIL, scn);
@@ -161,17 +176,19 @@ int 	add_sph(char **split, t_scn *scn)
 	sph->color = tabto_rgb(srgb);
 	ft_abort(spos);
 	ft_abort(srgb);
+	if (ft_tablen(split) == 5)
+		return (set_sph_disruption(split[4], sph, scn));
 	return (0);
 }
 
-int		set_disruption(char *c, t_pln *pln, t_scn *scn)
+int		set_pln_disruption(char *c, t_pln *pln, t_scn *scn)
 {
 	if (!ft_strcmp(c, "checkered"))
 	{
 		pln->disruption = 'c';
 		return (0);
 	}
-	else if (!ft_strcmp(c, "normal-sine"))
+	else if (!ft_strcmp(c, "normal-disr"))
 	{
 		pln->disruption = 'n';
 		return (0);
@@ -214,7 +231,7 @@ int 	add_pln(char **split, t_scn *scn)
 	ft_abort(srgb);
 	set_pln(pln);
 	if (ft_tablen(split) == 5)
-		set_disruption(split[4], pln, scn);
+		set_pln_disruption(split[4], pln, scn);
 	return (0);
 }
 

@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   libftutils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 17:10:42 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/15 03:18:10 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/22 12:25:38 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
-
-int		ft_tablen(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
-}
 
 int		ft_strcmp(const char *s1, const char *s2)
 {

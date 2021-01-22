@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vectop.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 20:51:54 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/21 20:24:36 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/22 13:14:47 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ t_vect	turn_vect(t_vect dir0, double angw, double angh)
 		return (tmp);
 	res = mult(cos(angh), tmp);
 	axe = (t_vect){-tmp.y, tmp.x, 0};
-	if (norm(axe) == 0)
+	if (norm(axe) < EPSILON)
 		axe = (t_vect){1, 0, 0};
 	return (normalize(sum(res, mult(sin(angh), prod_vect(normalize(axe), tmp)))));
 }

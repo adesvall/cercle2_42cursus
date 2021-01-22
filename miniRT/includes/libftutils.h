@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libftutils.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:48:52 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/14 02:07:01 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/22 12:33:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void			ft_bzero(void *s, size_t n);
 char			**ft_abort(char **res);
 char			**ft_split(const char *s, char *c);
 int				ft_strcmp(const char *s1, const char *s2);
+int   			ft_strend_is(char *str, char *end);
 int				ft_isin(char c, const char *str);
 int				ft_atoi(const char *str);
 double			ft_atod(const char *str);

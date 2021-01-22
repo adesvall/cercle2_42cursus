@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elems.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:48:36 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/21 20:58:36 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/22 13:29:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ typedef struct	s_sph
 	t_vect	center;
 	double	radius;
 	t_rgb	color;
+	char	disruption;
+	t_data	texture;
 }				t_sph;
 
 typedef struct	s_cam

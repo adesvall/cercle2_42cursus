@@ -1,7 +1,7 @@
 NAME		= miniRT
 
 SGNL		= get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
-SLIB		= libft/libftutils.c libft/libftutils2.c libft/libftutils3.c
+SLIB		= libft/libftutils.c libft/libftutils2.c libft/libftutils3.c libft/libftutils4.c
 
 SRCS		= main/main.c \
 			main/create_img.c \

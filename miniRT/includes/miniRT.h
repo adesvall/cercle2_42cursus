@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 20:40:00 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/21 21:05:38 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/22 13:01:49 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int			collision_sqr(t_ray ray, void *elem, t_vect *coli);
 int			in_square(t_vect coli, t_sqr car);
 t_abc		abc_solve(double a, double b, double c);
 
+t_rgb	    apply_color_disruption(t_vect normale, t_sph *sph);
 t_vect		apply_normal_disruption(t_vect coli, t_pln *pln);
 t_rgb		apply_texture(t_vect coli, t_pln *pln);
 

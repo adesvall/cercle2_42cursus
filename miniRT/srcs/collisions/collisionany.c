@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collisionany.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 23:27:39 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/21 20:49:24 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/22 13:02:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ t_rescl		collision_any(t_ray ray, t_scn *scn, t_vect *closest, double dmax)
 {
 	void	*elem;
 	t_rescl	res;
-	t_vect	col, best;
+	t_vect	col;
+	t_vect	best;
 
 	res.elem = NULL;
 	res.type = 0;
@@ -54,11 +55,11 @@ t_rescl		collision_any(t_ray ray, t_scn *scn, t_vect *closest, double dmax)
 		res.elem = elem;
 		res.type = "Sphere";
 		res.normale = normalize(diff(col, ((t_sph*)elem)->center));
-		res.color = ((t_sph*)elem)->color;
-		res.pos = &((t_sph*)elem)->center;
-		res.dir = NULL;
 		if (dot(res.normale, ray.dir) > 0)
 			res.normale = mult(-1, res.normale);
+		res.color = apply_color_disruption(res.normale, elem);
+		res.pos = &((t_sph*)elem)->center;
+		res.dir = NULL;
 	}
 	if ((elem = collision_list_elem(ray, scn->plns, &col, &collision_pln)) != NULL && (res.elem == NULL || norm(diff(ray.origin, col)) < norm(diff(ray.origin, best))))
 	{
