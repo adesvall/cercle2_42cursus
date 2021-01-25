@@ -5,18 +5,24 @@ SLIB		= libft/libftutils.c libft/libftutils2.c libft/libftutils3.c libft/libftut
 
 SRCS		= main/main.c \
 			main/create_img.c \
+			main/events.c \
 			main/save_bmp.c \
 			main/skybox.c \
 			collisions/collision.c \
 			collisions/collisionany.c \
+			collisions/fill_rescl.c \
 			collisions/collisionutils.c \
 			collisions/disruptions.c \
 			collisions/vectop.c \
+			collisions/vectop2.c \
+			collisions/rgb_op.c \
 			parse/parse_file.c \
 			parse/parseutils.c \
-			main/events.c \
 			parse/add_elem.c \
-			${SLIB} ${SGNL} \
+			parse/add_elem2.c \
+			parse/add_elem3.c \
+			parse/add_elem4.c \
+			${SLIB} ${SGNL}
 
 SRCSS		= ${addprefix srcs/, ${SRCS}}
 

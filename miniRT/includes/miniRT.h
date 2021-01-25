@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 20:40:00 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/22 13:01:49 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/25 19:26:44 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@
 # define WRONG_ARG 7
 # define MALLOC_FAIL 100
 
-# define REFLECT 0
-# define R_DEPTH 0
+# define REFLECT 0.3
+# define R_DEPTH 1
 
 void		init_scn(t_scn *scn);
 void		parse_file(t_scn *scn);
@@ -70,6 +70,12 @@ t_ray		find_ray(t_cam *cam, double i, double j, t_scn *scn);
 
 void		fill_img(t_targs *args);
 t_rescl		collision_any(t_ray ray, t_scn *scn, t_vect *closest, double max);
+t_vect		fill_res_sph(t_rescl *res, t_sph *sph, t_ray ray, t_vect col);
+t_vect		fill_res_pln(t_rescl *res, t_pln *pln, t_ray ray, t_vect col);
+t_vect		fill_res_tri(t_rescl *res, t_tri *tri, t_ray ray, t_vect col);
+t_vect		fill_res_cyl(t_rescl *res, t_cyl *cyl, t_ray ray, t_vect col);
+t_vect		fill_res_dsk(t_rescl *res, t_dsk *dsk, t_ray ray, t_vect col);
+t_vect		fill_res_sqr(t_rescl *res, t_sqr *sqr, t_ray ray, t_vect col);
 int			collision_sph(t_ray ray, void *elem, t_vect *coli);
 int			collision_pln(t_ray ray, void *elem, t_vect *coli);
 int			collision_tri(t_ray ray, void *elem, t_vect *coli);
@@ -90,12 +96,10 @@ double		limit_color(double n);
 t_rgb		sum_col(t_rgb c1, t_rgb c2);
 t_rgb		mult_col(double n, t_vect coef, t_rgb color);
 t_rgb		add_reflect(double reflect, t_rgb color, t_rgb reflectcol);
-int			egal_vect(t_vect v1, t_vect v2);
 t_vect		sum(t_vect v1, t_vect v2);
 void		translate(t_vect *v, double x, double y, double z);
 t_vect		diff(t_vect v1, t_vect v2);
 t_vect		mult(double n, t_vect v);
-t_vect		divn(double n, t_vect v);
 double		dot(t_vect v1, t_vect v2);
 double		norm(t_vect v);
 t_vect		prod_vect(t_vect v1, t_vect v2);

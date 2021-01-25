@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 21:31:37 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/17 13:21:21 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/25 19:59:29 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		collision_pln(t_ray ray, void *elem, t_vect *coli)
 	a = dot(ray.dir, pln->normale);
 	if (a > -EPSILON && a < EPSILON)
 		return (0);
-	dt = - dot(diff(ray.origin, pln->origin), pln->normale) / a;
+	dt = -dot(diff(ray.origin, pln->origin), pln->normale) / a;
 	if (dt > EPSILON)
 	{
 		if (coli)
@@ -34,23 +34,23 @@ int		collision_pln(t_ray ray, void *elem, t_vect *coli)
 
 int		collision_sph(t_ray ray, void *elem, t_vect *coli)
 {
-	double	a, b, c, delta, res;
+	t_abc	res;
 	t_sph	*sph;
 
 	sph = (t_sph*)elem;
-	a = dot(ray.dir, ray.dir);
-	b = 2 * dot(ray.dir, diff(ray.origin, sph->center));
-	c = pow(ray.origin.x - sph->center.x, 2) + pow(ray.origin.y - sph->center.y, 2) + pow(ray.origin.z - sph->center.z, 2) - pow(sph->radius, 2);
-	delta = pow(b, 2) - 4 * a * c;
-	if (delta > EPSILON)
+	res = abc_solve(dot(ray.dir, ray.dir),
+					2 * dot(ray.dir, diff(ray.origin, sph->center)),
+					pow(ray.origin.x - sph->center.x, 2) +
+					pow(ray.origin.y - sph->center.y, 2) +
+					pow(ray.origin.z - sph->center.z, 2) - pow(sph->radius, 2));
+	if (res.delta > EPSILON)
 	{
-		res = -(b + sqrt(delta))/(2*a);
-		if (res <= EPSILON)
-			res += sqrt(delta)/a;
-		if (res > EPSILON)
+		if (res.x1 <= EPSILON)
+			res.x1 += res.x2_x1;
+		if (res.x1 > EPSILON)
 		{
 			if (coli)
-				*coli = sum(ray.origin, mult(res, ray.dir));
+				*coli = sum(ray.origin, mult(res.x1, ray.dir));
 			return (1);
 		}
 	}
