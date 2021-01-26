@@ -1,16 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   collisionutils.c                                   :+:      :+:    :+:   */
+/*   collision2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 11:00:18 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/25 19:50:53 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/26 14:55:23 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+int		collision_sqr(t_ray ray, void *elem, t_vect *coli)
+{
+	t_vect	col;
+	double	a;
+	double	dt;
+	t_sqr	*sqr;
+
+	sqr = (t_sqr *)elem;
+	a = dot(ray.dir, sqr->normale);
+	if (a > -EPSILON && a < EPSILON)
+		return (0);
+	dt = -dot(diff(ray.origin, sqr->origin), sqr->normale) / a;
+	if (dt > EPSILON)
+	{
+		col = sum(ray.origin, mult(dt, ray.dir));
+		if (in_square(col, *sqr))
+		{
+			if (coli)
+				*coli = col;
+			return (1);
+		}
+	}
+	return (0);
+}
 
 int		in_square(t_vect col, t_sqr sqr)
 {

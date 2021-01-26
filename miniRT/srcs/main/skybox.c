@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 19:37:30 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/21 21:27:17 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/26 18:29:29 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ t_rgb		get_sky_color(t_data sky, double x, double y, t_couple start_img)
 	int		trgb;
 	t_rgb	color;
 
-	column = start_img.W + (int)(sky.H/3.0 * (1 + x) / 2.0);
-	row = start_img.H + (int)(sky.H/3.0 * (1 + y) / 2.0);
-	trgb = *((unsigned int*)(sky.addr + (row * sky.line_length + column * (sky.bits_per_pixel / 8))));
+	column = start_img.W + (int)(sky.H / 3.0 * (1 + x) / 2.0);
+	row = start_img.H + (int)(sky.H / 3.0 * (1 + y) / 2.0);
+	trgb = *((unsigned int*)(sky.addr + (row * sky.line_length + column
+												* (sky.bits_per_pixel / 8))));
 	color.b = trgb & 0xFF;
 	color.g = (trgb >> 8) & 0xFF;
 	color.r = (trgb >> 16) & 0xFF;
@@ -41,28 +42,27 @@ t_rgb		get_sky_color(t_data sky, double x, double y, t_couple start_img)
 
 t_rgb		get_sky_coord(t_scn *scn, t_ray ray)
 {
-	t_rgb	color;
 	int		start_img;
 
-	ft_bzero(&color, sizeof(t_rgb));
 	ray.dir = normalize(ray.dir);
-	if (fabs(ray.dir.z) >= fabs(ray.dir.y) && fabs(ray.dir.z) >= fabs(ray.dir.x))
+	if (fabs(ray.dir.z) >= fabs(ray.dir.y)
+			&& fabs(ray.dir.z) >= fabs(ray.dir.x))
 	{
 		start_img = ray.dir.z >= 0 ? 0 : scn->sky.H * 2 / 3;
-		color = get_sky_color(scn->sky, -ray.dir.x / fabs(ray.dir.z),
-					-ray.dir.y / ray.dir.z, (t_couple){scn->sky.W / 4, start_img});
+		return (get_sky_color(scn->sky, -ray.dir.x / fabs(ray.dir.z),
+			-ray.dir.y / ray.dir.z, (t_couple){scn->sky.W / 4, start_img}));
 	}
-	else if (fabs(ray.dir.x) >= fabs(ray.dir.y) && fabs(ray.dir.x) >= fabs(ray.dir.z))
+	else if (fabs(ray.dir.x) >= fabs(ray.dir.y)
+			&& fabs(ray.dir.x) >= fabs(ray.dir.z))
 	{
 		start_img = ray.dir.x >= 0 ? 0 : scn->sky.W / 2;
-		color = get_sky_color(scn->sky, -ray.dir.y / ray.dir.x,
-					-ray.dir.z / fabs(ray.dir.x), (t_couple){start_img, scn->sky.H / 3});
+		return (get_sky_color(scn->sky, -ray.dir.y / ray.dir.x,
+		-ray.dir.z / fabs(ray.dir.x), (t_couple){start_img, scn->sky.H / 3}));
 	}
-	else if (fabs(ray.dir.y) >= fabs(ray.dir.z) && fabs(ray.dir.y) >= fabs(ray.dir.x))
+	else
 	{
 		start_img = ray.dir.y < 0 ? scn->sky.W / 4 : scn->sky.W * 3 / 4;
-		color = get_sky_color(scn->sky, ray.dir.x / ray.dir.y,
-					-ray.dir.z / fabs(ray.dir.y), (t_couple){start_img, scn->sky.H / 3});
+		return (get_sky_color(scn->sky, ray.dir.x / ray.dir.y,
+		-ray.dir.z / fabs(ray.dir.y), (t_couple){start_img, scn->sky.H / 3}));
 	}
-	return (color);
 }

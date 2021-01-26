@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libftutils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 17:10:42 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/22 12:25:38 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/26 18:34:14 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		ft_isin(char c, const char *str)
 	while (str[i])
 	{
 		if (str[i] == c)
-			return (i+1);
+			return (i + 1);
 		i++;
 	}
 	return (0);
@@ -69,12 +69,12 @@ int		ft_atoi(const char *str)
 double	getsign(const char *str)
 {
 	int	i;
-	
+
 	i = 0;
 	while (ft_isin(str[i], " \t\n\v\f\r"))
 		i++;
 	if (str[i] == '-')
-		return(-1);
+		return (-1);
 	return (1);
 }
 
@@ -85,6 +85,7 @@ double	ft_atod(const char *str)
 
 	res = (double)ft_atoi(str);
 	if ((afterdot = ft_isin('.', str)) != 0)
-		res += getsign(str) * (double)ft_atoi(&str[afterdot]) / pow(10, ft_strlen(&str[afterdot]));
+		res += getsign(str) * (double)ft_atoi(&str[afterdot])
+						/ pow(10, ft_strlen(&str[afterdot]));
 	return (res);
 }

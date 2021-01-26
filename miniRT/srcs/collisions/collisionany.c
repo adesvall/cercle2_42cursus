@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 23:27:39 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/25 19:45:52 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/26 17:19:30 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,40 +41,57 @@ void		*collision_list_elem(t_ray ray, t_list *elem, t_vect *closest,
 	return (res);
 }
 
-t_vect		fill_res_sqr(t_rescl *res, t_sqr *sqr, t_ray ray, t_vect col)
+t_vect		fill_res_sqr(t_rescl *res, t_ray ray, t_vect col)
 {
-	res->elem = sqr;
+	t_sqr	*sqr;
+
+	sqr = res->elem;
 	res->type = (sqr->cub) ? "Cube (Square)" : "Square";
+	res->dist = norm(diff(ray.origin, col));
 	res->normale = sqr->normale;
 	res->color = sqr->color;
-	res->pos = &sqr->origin;
-	res->dir = &sqr->normale;
+	res->pos = (sqr->cub) ? &sqr->cub->origin : &sqr->origin;
+	res->dir = (sqr->cub) ? &sqr->cub->dirs[0] : &sqr->normale;
 	if (dot(res->normale, ray.dir) > 0)
 		res->normale = mult(-1, res->normale);
 	return (col);
 }
 
-t_rescl		collision_any(t_ray ray, t_scn *scn, t_vect *closest, double dmax)
+int			check_is_closer(t_rescl *res, t_list *list, t_ray ray,
+						int (*collision) (t_ray ray, void *elem, t_vect *coli))
 {
 	void	*elem;
-	t_rescl	res;
 	t_vect	col;
+
+	elem = collision_list_elem(ray, list, &col, collision);
+	if (elem != NULL && (res->elem == NULL
+					|| norm(diff(ray.origin, col)) < res->dist))
+	{
+		res->elem = elem;
+		res->col = col;
+		return (1);
+	}
+	return (0);
+}
+
+t_rescl		collision_any(t_ray ray, t_scn *scn, t_vect *closest, double dmax)
+{
+	t_rescl	res;
 	t_vect	best;
 
 	res.elem = NULL;
-	res.normale = (t_vect){-1, 0, 0};
-	if ((elem = collision_list_elem(ray, scn->sphs, &col, &collision_sph)) != NULL)
-		best = fill_res_sph(&res, elem, ray, col);
-	if ((elem = collision_list_elem(ray, scn->plns, &col, &collision_pln)) != NULL && (res.elem == NULL || norm(diff(ray.origin, col)) < norm(diff(ray.origin, best))))
-		best = fill_res_pln(&res, elem, ray, col);
-	if ((elem = collision_list_elem(ray, scn->tris, &col, &collision_tri)) != NULL && (res.elem == NULL || norm(diff(ray.origin, col)) < norm(diff(ray.origin, best))))
-		best = fill_res_tri(&res, elem, ray, col);
-	if ((elem = collision_list_elem(ray, scn->cyls, &col, &collision_cyl)) != NULL && (res.elem == NULL || norm(diff(ray.origin, col)) < norm(diff(ray.origin, best))))
-		best = fill_res_cyl(&res, elem, ray, col);
-	if ((elem = collision_list_elem(ray, scn->dsks, &col, &collision_dsk)) != NULL && (res.elem == NULL || norm(diff(ray.origin, col)) < norm(diff(ray.origin, best))))
-		best = fill_res_dsk(&res, elem, ray, col);
-	if ((elem = collision_list_elem(ray, scn->sqrs, &col, &collision_sqr)) != NULL && (res.elem == NULL || norm(diff(ray.origin, col)) < norm(diff(ray.origin, best))))
-		best = fill_res_sqr(&res, elem, ray, col);
+	if (check_is_closer(&res, scn->sphs, ray, &collision_sph))
+		best = fill_res_sph(&res, ray, res.col);
+	if (check_is_closer(&res, scn->plns, ray, &collision_pln))
+		best = fill_res_pln(&res, ray, res.col);
+	if (check_is_closer(&res, scn->tris, ray, &collision_tri))
+		best = fill_res_tri(&res, ray, res.col);
+	if (check_is_closer(&res, scn->cyls, ray, &collision_cyl))
+		best = fill_res_cyl(&res, ray, res.col);
+	if (check_is_closer(&res, scn->dsks, ray, &collision_dsk))
+		best = fill_res_dsk(&res, ray, res.col);
+	if (check_is_closer(&res, scn->sqrs, ray, &collision_sqr))
+		best = fill_res_sqr(&res, ray, res.col);
 	if (res.elem != NULL && dmax != -1 && norm(diff(best, ray.origin)) > dmax)
 		res.elem = NULL;
 	if (res.elem != NULL && closest)

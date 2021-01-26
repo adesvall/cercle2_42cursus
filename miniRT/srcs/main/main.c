@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 21:01:38 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/22 13:22:38 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/26 19:12:20 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,27 @@
 
 void	create_window(t_scn *scn)
 {
+	int	size_w;
+	int	size_h;
+
 	printf("\033[0;32mCreating window...\n\033[0m");
-	if (!(scn->mlx_win = mlx_new_window(scn->mlx, scn->res.W, scn->res.H, "miniRT")))
+	mlx_get_screen_size(scn->mlx, &size_w, &size_h);
+	if (scn->res.W > size_w)
+		scn->res.W = size_w;
+	if (scn->res.H > size_h)
+		scn->res.H = size_h;
+	if (!(scn->mlx_win = mlx_new_window(scn->mlx,
+										scn->res.W, scn->res.H, "miniRT")))
 		handle_error("Fail to create Minilibx window", WINDOW_FAIL, scn);
+	create_all_img(scn);
 	scn->sl_obj.pos = &((t_cam*)scn->actualcam->content)->origin;
 	scn->sl_obj.dir = &((t_cam*)scn->actualcam->content)->dir;
 	printf("The actual Camera is selected.\n");
-	//mlx_hook(scn->mlx_win, ButtonPress, NoEventMask, mouse_press, scn);
-	//mlx_hook(scn->mlx_win, 5, 0, mouse_release, rt);
-	//mlx_hook(scn->mlx_win, 6, 0, get_mouse_pos, rt);
 	mlx_mouse_hook(scn->mlx_win, mouse_press, scn);
 	mlx_hook(scn->mlx_win, ClientMessage, NoEventMask, exit_and_free, scn);
 	mlx_key_hook(scn->mlx_win, get_keypress, scn);
-	mlx_put_image_to_window(scn->mlx, scn->mlx_win, ((t_cam*)scn->actualcam->content)->data.img, 0, 0);
-	//mlx_put_image_to_window(scn->mlx, scn->mlx_win, scn->sky.img, 0, 0);
-
+	mlx_put_image_to_window(scn->mlx, scn->mlx_win,
+						((t_cam*)scn->actualcam->content)->data.img, 0, 0);
 	mlx_loop(scn->mlx);
 }
 
@@ -38,49 +44,21 @@ void	create_all_img(t_scn *scn)
 	t_cam	*cam;
 
 	ite = scn->cams;
-    while (ite)
-    {
-        cam = (t_cam*)ite->content;
+	while (ite)
+	{
+		cam = (t_cam*)ite->content;
 		if (!(cam->data.img = mlx_new_image(scn->mlx, scn->res.W, scn->res.H)))
 			handle_error("failed to create img.", IMG_FAIL, scn);
-        cam->data.addr = mlx_get_data_addr(cam->data.img, &cam->data.bits_per_pixel, &cam->data.line_length,
-                                &cam->data.endian);
-        create_img(cam, scn);
-        ite = ite->next;
-    }
-}
-
-void	set_pln(t_pln *pln)
-{
-	if (fabs(pln->normale.x) < EPSILON && fabs(pln->normale.y) < EPSILON)
-		pln->right = (t_vect){1, 0, 0};
-	else
-		pln->right = normalize((t_vect){100 * pln->normale.y, -100 * pln->normale.x, 0});
-	pln->down = normalize(prod_vect(pln->normale, pln->right));
-}
-
-void	set_sqr(t_sqr *sqr)
-{
-	if (fabs(sqr->normale.x) < EPSILON && fabs(sqr->normale.y) < EPSILON)
-		sqr->right = (t_vect){1, 0, 0};
-	else
-		sqr->right = normalize((t_vect){100 * sqr->normale.y, -100 * sqr->normale.x, 0});
-	sqr->down = normalize(prod_vect(sqr->normale, sqr->right));
-}
-
-void	set_cam(t_cam *cam, int resW)
-{
-	cam->coef_fov = tan(cam->fov * M_PI / 360) / resW;
-	if (fabs(cam->dir.x) < EPSILON && fabs(cam->dir.y) < EPSILON)
-		cam->right = normalize((t_vect){0, -1, 0});
-	else
-		cam->right = normalize((t_vect){100*cam->dir.y, -100*cam->dir.x, 0});
-	cam->down = normalize(prod_vect(cam->dir, cam->right));
+		cam->data.addr = mlx_get_data_addr(cam->data.img,
+		&cam->data.bits_per_pixel, &cam->data.line_length, &cam->data.endian);
+		create_img(cam, scn);
+		ite = ite->next;
+	}
 }
 
 int		main(int argc, char **argv)
 {
-    t_scn scn;
+	t_scn scn;
 
 	if (argc == 1 || argc > 3)
 	{
@@ -88,19 +66,19 @@ int		main(int argc, char **argv)
 		exit(1);
 	}
 	ft_bzero(&scn, sizeof(t_scn));
-    if (!ft_strend_is(scn.filename = argv[1], ".rt"))
+	if (!ft_strend_is(scn.filename = argv[1], ".rt"))
 		return (handle_error("not a .rt file", OPEN_FAIL, &scn));
-    scn.mlx = mlx_init();
+	scn.mlx = mlx_init();
 	parse_file(&scn);
 	printf("\033[0;32mRendering miniRT...\n\033[0m");
-    create_all_img(&scn);
 	if (argc == 3 && !ft_strcmp(argv[2], "-save"))
 	{
+		create_all_img(&scn);
 		printf("Saving to save.bmp ..\n");
 		save_bmp("save.bmp", (unsigned char*)((t_cam*)scn.cams->content)->data.addr, &scn);
 		exit_and_free(&scn);
 	}
-    else if (argc == 2)
+	else if (argc == 2)
 		create_window(&scn);
 	else
 		printf("Wrong arguments.\n");

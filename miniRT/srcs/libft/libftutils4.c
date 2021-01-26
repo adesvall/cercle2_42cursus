@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libftutils4.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 12:24:23 by user42            #+#    #+#             */
-/*   Updated: 2021/01/22 12:33:33 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/26 18:35:27 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,20 @@ int		ft_tablen(char **tab)
 	return (i);
 }
 
-int     ft_strend_is(char *str, char *end)
+int		ft_strend_is(char *str, char *end)
 {
-    int i;
-    int j;
+	int i;
+	int j;
 
-    i = ft_strlen(str) - ft_strlen(end);
-    j = 0;
-    while (str[i + j])
-    {
-        if (str[i + j] != end[j])
-            return (0);
-        j++;
-    }
-    return (!end[j]);
+	i = ft_strlen(str) - ft_strlen(end);
+	j = 0;
+	while (str[i + j])
+	{
+		if (str[i + j] != end[j])
+			return (0);
+		j++;
+	}
+	return (!end[j]);
 }
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)

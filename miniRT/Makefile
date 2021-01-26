@@ -4,14 +4,18 @@ SGNL		= get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 SLIB		= libft/libftutils.c libft/libftutils2.c libft/libftutils3.c libft/libftutils4.c
 
 SRCS		= main/main.c \
+			main/set_objs.c \
+			main/raytrace.c \
 			main/create_img.c \
 			main/events.c \
+			main/events2.c \
+			main/hooks.c \
 			main/save_bmp.c \
 			main/skybox.c \
 			collisions/collision.c \
+			collisions/collision2.c \
 			collisions/collisionany.c \
 			collisions/fill_rescl.c \
-			collisions/collisionutils.c \
 			collisions/disruptions.c \
 			collisions/vectop.c \
 			collisions/vectop2.c \

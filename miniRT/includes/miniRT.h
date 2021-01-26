@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 20:40:00 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/25 19:26:44 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/26 19:12:45 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@
 # define WRONG_ARG 7
 # define MALLOC_FAIL 100
 
-# define REFLECT 0.3
-# define R_DEPTH 1
+# define REFLECT 0
+# define R_DEPTH 0
 
 void		init_scn(t_scn *scn);
 void		parse_file(t_scn *scn);
@@ -55,6 +55,11 @@ int			exit_and_free(t_scn *scn);
 int			handle_error(char *msg, int err, t_scn *scn);
 int			get_keypress(int key, t_scn *scn);
 int			mouse_press(int button, int x, int y, t_scn *scn);
+void		select_lum(t_scn *scn);
+void		change_cam(t_scn *scn);
+void		reload_scn(t_scn *scn);
+void		move_selection(int key, t_scn *scn);
+
 
 int			xpm_to_data(t_scn *scn, t_data *tex, char *path);
 t_rgb		get_xpm_color(t_data xpm, double x, double y);
@@ -64,18 +69,21 @@ t_rgb		get_sky_coord(t_scn *scn, t_ray ray);
 void		create_all_img(t_scn *scn);
 void		create_img(t_cam *cam, t_scn *scn);
 void		set_cam(t_cam *cam, int resw);
+void		set_r_and_d(t_vect dir, t_vect *right, t_vect *down);
 void		set_pln(t_pln *pln);
 void		set_sqr(t_sqr *sqr);
 t_ray		find_ray(t_cam *cam, double i, double j, t_scn *scn);
+t_rgb		get_color(t_scn *scn, t_ray ray, int rfi);
+
 
 void		fill_img(t_targs *args);
 t_rescl		collision_any(t_ray ray, t_scn *scn, t_vect *closest, double max);
-t_vect		fill_res_sph(t_rescl *res, t_sph *sph, t_ray ray, t_vect col);
-t_vect		fill_res_pln(t_rescl *res, t_pln *pln, t_ray ray, t_vect col);
-t_vect		fill_res_tri(t_rescl *res, t_tri *tri, t_ray ray, t_vect col);
-t_vect		fill_res_cyl(t_rescl *res, t_cyl *cyl, t_ray ray, t_vect col);
-t_vect		fill_res_dsk(t_rescl *res, t_dsk *dsk, t_ray ray, t_vect col);
-t_vect		fill_res_sqr(t_rescl *res, t_sqr *sqr, t_ray ray, t_vect col);
+t_vect		fill_res_sph(t_rescl *res, t_ray ray, t_vect col);
+t_vect		fill_res_pln(t_rescl *res, t_ray ray, t_vect col);
+t_vect		fill_res_tri(t_rescl *res, t_ray ray, t_vect col);
+t_vect		fill_res_cyl(t_rescl *res, t_ray ray, t_vect col);
+t_vect		fill_res_dsk(t_rescl *res, t_ray ray, t_vect col);
+t_vect		fill_res_sqr(t_rescl *res, t_ray ray, t_vect col);
 int			collision_sph(t_ray ray, void *elem, t_vect *coli);
 int			collision_pln(t_ray ray, void *elem, t_vect *coli);
 int			collision_tri(t_ray ray, void *elem, t_vect *coli);
@@ -90,7 +98,7 @@ t_vect		apply_normal_disruption(t_vect coli, t_pln *pln);
 t_rgb		apply_texture(t_vect coli, t_pln *pln);
 
 void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void		save_bmp(const char *filename, const unsigned char *data, t_scn *scn);
+void		save_bmp(const char *filename, unsigned char *data, t_scn *scn);
 
 double		limit_color(double n);
 t_rgb		sum_col(t_rgb c1, t_rgb c2);

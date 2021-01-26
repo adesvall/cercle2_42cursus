@@ -6,13 +6,13 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:10:37 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/14 17:32:44 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/26 18:32:57 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-void	ft_bzero(void *s, size_t n)
+void		ft_bzero(void *s, size_t n)
 {
 	size_t i;
 
@@ -23,6 +23,7 @@ void	ft_bzero(void *s, size_t n)
 		i++;
 	}
 }
+
 static int	ft_count(const char *s, char *c)
 {
 	int	i;
@@ -69,7 +70,7 @@ static char	*ft_strdup_chr(const char *str, char *c)
 	return (res);
 }
 
-char	**ft_abort(char **res)
+char		**ft_abort(char **res)
 {
 	int	i;
 
@@ -101,8 +102,7 @@ char		**ft_split(const char *s, char *c)
 	{
 		if (word == 0 && !ft_isin(s[i], c))
 		{
-			res[count] = ft_strdup_chr(&(s[i]), c);
-			if (res[count++] == 0)
+			if ((res[count++] = ft_strdup_chr(&(s[i]), c)) == 0)
 				return (ft_abort(res));
 			word = 1;
 		}

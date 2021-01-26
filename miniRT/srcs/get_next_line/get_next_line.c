@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 02:38:25 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/13 17:34:54 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/26 18:46:56 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,20 +74,17 @@ int		get_next_line(int fd, char **line)
 		return (-1);
 	while (!is_endofline(ligne) && resread != 0)
 	{
-		if ((resread = read(fd, buf, BUFFER_SIZE)) == -1)
+		if ((resread = read(fd, buf, BUFFER_SIZE)) != -1)
 		{
-			free(buf);
-			free(ligne);
-			return (-1);
+			buf[resread] = '\0';
+			ligne = join_and_realloc(ligne, buf);
 		}
-		buf[resread] = '\0';
-		ligne = join_and_realloc(ligne, buf);
 	}
 	free(buf);
 	*line = trimend(ligne);
 	ligne = trimstart(ligne);
-	if (resread != 0 || is_endofline(ligne))
+	if (resread == 1 || is_endofline(ligne))
 		return (1);
 	free(ligne);
-	return (0);
+	return (resread);
 }
