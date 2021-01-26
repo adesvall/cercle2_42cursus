@@ -6,11 +6,11 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 16:22:20 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/26 16:29:39 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/26 19:30:01 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 t_rgb	filter(t_rgb rgb, char filter)
 {
@@ -27,8 +27,8 @@ t_ray	find_ray(t_cam *cam, double i, double j, t_scn *scn)
 	t_vect	right;
 	t_vect	down;
 
-	right = mult(cam->coef_fov * (j - scn->res.W / 2), cam->right);
-	down = mult(cam->coef_fov * (i - scn->res.H / 2), cam->down);
+	right = mult(cam->coef_fov * (j - scn->res.w / 2), cam->right);
+	down = mult(cam->coef_fov * (i - scn->res.h / 2), cam->down);
 	return ((t_ray){cam->origin, normalize(sum(cam->dir, sum(right, down)))});
 }
 
@@ -59,10 +59,10 @@ void	fill_img(t_targs *args)
 	int		i;
 
 	i = 0;
-	while (i + args->i < args->scn->res.H && i < args->scn->res.H / 4)
+	while (i + args->i < args->scn->res.h && i < args->scn->res.h / 4)
 	{
 		j = 0;
-		while (j < args->scn->res.W)
+		while (j < args->scn->res.w)
 		{
 			color = filter(raytrace(args->scn, args->cam, i + args->i, j),
 															args->cam->filter);
@@ -81,11 +81,11 @@ void	create_img(t_cam *cam, t_scn *scn)
 	pthread_t	t[4];
 	t_targs		arg[4];
 
-	set_cam(cam, scn->res.W);
+	set_cam(cam, scn->res.w);
 	nthr = 0;
 	while (nthr < 4)
 	{
-		arg[nthr] = (t_targs){nthr * scn->res.H / 4, cam, scn};
+		arg[nthr] = (t_targs){nthr * scn->res.h / 4, cam, scn};
 		pthread_create(&t[nthr], NULL, (void*)fill_img, &arg[nthr]);
 		nthr++;
 	}

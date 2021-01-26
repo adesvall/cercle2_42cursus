@@ -6,11 +6,11 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:08:07 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/26 17:40:04 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/26 19:30:01 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 /*
 ** ESC  65307

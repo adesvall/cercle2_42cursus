@@ -6,11 +6,11 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 16:55:11 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/26 18:56:03 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/26 19:30:01 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniRT.h"
+#include "../../includes/minirt.h"
 
 t_vect	tabto_vect(char **s)
 {

@@ -6,11 +6,11 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 21:31:37 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/26 14:54:43 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/26 19:30:01 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 int	collision_pln(t_ray ray, void *elem, t_vect *coli)
 {

@@ -6,11 +6,11 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 18:13:10 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/25 18:13:39 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/26 19:30:01 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 int		add_cam(char **split, t_scn *scn)
 {

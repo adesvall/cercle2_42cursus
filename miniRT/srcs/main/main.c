@@ -6,11 +6,11 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 21:01:38 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/26 19:12:20 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/26 19:30:01 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniRT.h"
+#include "../../includes/minirt.h"
 
 void	create_window(t_scn *scn)
 {
@@ -19,12 +19,12 @@ void	create_window(t_scn *scn)
 
 	printf("\033[0;32mCreating window...\n\033[0m");
 	mlx_get_screen_size(scn->mlx, &size_w, &size_h);
-	if (scn->res.W > size_w)
-		scn->res.W = size_w;
-	if (scn->res.H > size_h)
-		scn->res.H = size_h;
+	if (scn->res.w > size_w)
+		scn->res.w = size_w;
+	if (scn->res.h > size_h)
+		scn->res.h = size_h;
 	if (!(scn->mlx_win = mlx_new_window(scn->mlx,
-										scn->res.W, scn->res.H, "miniRT")))
+										scn->res.w, scn->res.h, "miniRT")))
 		handle_error("Fail to create Minilibx window", WINDOW_FAIL, scn);
 	create_all_img(scn);
 	scn->sl_obj.pos = &((t_cam*)scn->actualcam->content)->origin;
@@ -47,7 +47,7 @@ void	create_all_img(t_scn *scn)
 	while (ite)
 	{
 		cam = (t_cam*)ite->content;
-		if (!(cam->data.img = mlx_new_image(scn->mlx, scn->res.W, scn->res.H)))
+		if (!(cam->data.img = mlx_new_image(scn->mlx, scn->res.w, scn->res.h)))
 			handle_error("failed to create img.", IMG_FAIL, scn);
 		cam->data.addr = mlx_get_data_addr(cam->data.img,
 		&cam->data.bits_per_pixel, &cam->data.line_length, &cam->data.endian);

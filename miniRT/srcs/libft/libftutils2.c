@@ -6,11 +6,11 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 17:10:42 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/26 18:34:14 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/26 19:30:01 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniRT.h"
+#include "../../includes/minirt.h"
 
 int		ft_strcmp(const char *s1, const char *s2)
 {

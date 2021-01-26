@@ -6,11 +6,11 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 13:36:56 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/25 18:16:17 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/26 19:30:01 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 int		set_res(char **split, t_scn *scn)
 {
@@ -21,11 +21,11 @@ int		set_res(char **split, t_scn *scn)
 		return (WRONG_LINE);
 	new_w = ft_atoi(split[1]);
 	new_h = ft_atoi(split[2]);
-	if (scn->res.H != 0 && (new_w != scn->res.W || new_h != scn->res.H))
+	if (scn->res.h != 0 && (new_w != scn->res.w || new_h != scn->res.h))
 		return (WRONG_LINE);
-	scn->res.W = new_w;
-	scn->res.H = new_h;
-	if (scn->res.W < 1 || scn->res.H < 1)
+	scn->res.w = new_w;
+	scn->res.h = new_h;
+	if (scn->res.w < 1 || scn->res.h < 1)
 		return (WRONG_LINE);
 	return (0);
 }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   libftutils3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:25:03 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/22 12:33:20 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/26 19:30:01 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniRT.h"
+#include "../../includes/minirt.h"
 
 int		ft_lstsize(t_list *lst)
 {

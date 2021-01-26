@@ -6,11 +6,11 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 23:27:39 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/26 17:19:30 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/26 19:30:01 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 void		*collision_list_elem(t_ray ray, t_list *elem, t_vect *closest,
 						int (*collision) (t_ray ray, void *elem, t_vect *coli))

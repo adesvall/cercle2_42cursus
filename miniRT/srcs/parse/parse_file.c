@@ -6,11 +6,11 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 18:57:00 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/26 19:11:09 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/26 19:30:01 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniRT.h"
+#include "../../includes/minirt.h"
 
 int		parse_line2(char **split, t_scn *scn)
 {
@@ -89,7 +89,7 @@ void	parse_file(t_scn *scn)
 	parse_fd(fd, scn);
 	if (scn->cams == NULL)
 		handle_error("no camera available", NO_CAMERA, scn);
-	if (!scn->res.W || !scn->res.H)
+	if (!scn->res.w || !scn->res.h)
 		handle_error("no resolution", NO_RES, scn);
 	scn->actualcam = scn->cams;
 	scn->actuallum = scn->lums;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
+/*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 20:40:00 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/26 19:12:45 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/26 19:29:26 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void		change_cam(t_scn *scn);
 void		reload_scn(t_scn *scn);
 void		move_selection(int key, t_scn *scn);
 
-
 int			xpm_to_data(t_scn *scn, t_data *tex, char *path);
 t_rgb		get_xpm_color(t_data xpm, double x, double y);
 t_rgb		get_sky_color(t_data sky, double x, double y, t_couple start_img);
@@ -74,7 +73,6 @@ void		set_pln(t_pln *pln);
 void		set_sqr(t_sqr *sqr);
 t_ray		find_ray(t_cam *cam, double i, double j, t_scn *scn);
 t_rgb		get_color(t_scn *scn, t_ray ray, int rfi);
-
 
 void		fill_img(t_targs *args);
 t_rescl		collision_any(t_ray ray, t_scn *scn, t_vect *closest, double max);
@@ -93,7 +91,7 @@ int			collision_sqr(t_ray ray, void *elem, t_vect *coli);
 int			in_square(t_vect coli, t_sqr car);
 t_abc		abc_solve(double a, double b, double c);
 
-t_rgb	    apply_color_disruption(t_vect normale, t_sph *sph);
+t_rgb		apply_color_disruption(t_vect normale, t_sph *sph);
 t_vect		apply_normal_disruption(t_vect coli, t_pln *pln);
 t_rgb		apply_texture(t_vect coli, t_pln *pln);
 
