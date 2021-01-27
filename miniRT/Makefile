@@ -45,9 +45,11 @@ CFLAGS		= -Wall -Wextra -Werror -Iincludes -Imlx_linux -lpthread -O0 -g
 
 all:		${NAME}
 
-$(NAME):	${OBJS} ${HEADERS}
+$(NAME):	${OBJS}
 			make -C mlx_linux
 			gcc -o ${NAME} ${OBJS} ${CFLAGS} mlx_linux/libmlx.a $(OPENGL)
+
+$(OBJS):	${HEADERS}
 
 .c.o:		
 			gcc ${CFLAGS} $(OPENGL) -c $< -o ${<:.c=.o}
