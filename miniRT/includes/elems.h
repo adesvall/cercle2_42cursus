@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:48:36 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/26 19:23:14 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/27 15:16:28 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ typedef struct	s_scn
 	t_list		*cyls;
 	t_list		*tris;
 	t_list		*cubs;
+	t_list		*texs;
 }				t_scn;
 
 typedef struct	s_targs

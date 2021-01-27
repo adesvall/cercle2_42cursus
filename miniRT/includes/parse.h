@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 21:15:50 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/26 19:22:32 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/27 14:57:08 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "elems.h"
 
-void	add_caps(t_cyl *cyl, t_scn *scn, int caps);
+void	add_caps(t_cyl *cyl, t_scn *scn);
 void	set_caps(t_cyl *cyl, t_dsk *dsk1, t_dsk *dsk2);
 int		set_res(char **split, t_scn *scn);
 int		set_amblum(char **split, t_scn *scn);

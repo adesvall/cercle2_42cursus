@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 20:40:00 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/26 19:29:26 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/27 15:41:37 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@
 # define REFLECT 0
 # define R_DEPTH 0
 
-void		init_scn(t_scn *scn);
 void		parse_file(t_scn *scn);
+int			strto_vect(t_vect *dst, char *str, int isrgb);
+int			strto_rgb(t_rgb *dst, char *str);
 t_vect		tabto_vect(char **s);
 t_vect		tabto_lumrgb(char **s);
 t_rgb		tabto_rgb(char **s);
@@ -57,6 +58,7 @@ int			get_keypress(int key, t_scn *scn);
 int			mouse_press(int button, int x, int y, t_scn *scn);
 void		select_lum(t_scn *scn);
 void		change_cam(t_scn *scn);
+void		clean_scene(t_scn *scn);
 void		reload_scn(t_scn *scn);
 void		move_selection(int key, t_scn *scn);
 

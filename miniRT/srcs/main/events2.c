@@ -6,11 +6,30 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:02:16 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/26 19:30:01 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/27 15:39:02 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	reload_scn(t_scn *scn)
+{
+	t_cam	*cam;
+
+	clean_scene(scn);
+	scn->ambI = 0;
+	parse_file(scn);
+	scn->actualcam = scn->cams;
+	cam = scn->actualcam->content;
+	scn->actuallum = scn->lums;
+	scn->sl_obj.pos = &cam->origin;
+	scn->sl_obj.dir = &cam->dir;
+	create_all_img(scn);
+	scn->actualcam = scn->cams;
+	scn->actuallum = scn->lums;
+	printf("The actual Camera is selected.\n");
+	mlx_put_image_to_window(scn->mlx, scn->mlx_win, cam->data.img, 0, 0);
+}
 
 void	change_cam(t_scn *scn)
 {

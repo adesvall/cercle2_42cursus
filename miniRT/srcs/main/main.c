@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 21:01:38 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/26 19:30:01 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/27 13:44:35 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ int		main(int argc, char **argv)
 	{
 		create_all_img(&scn);
 		printf("Saving to save.bmp ..\n");
-		save_bmp("save.bmp", (unsigned char*)((t_cam*)scn.cams->content)->data.addr, &scn);
+		save_bmp("save.bmp",
+				(unsigned char*)((t_cam*)scn.cams->content)->data.addr, &scn);
 		exit_and_free(&scn);
 	}
 	else if (argc == 2)

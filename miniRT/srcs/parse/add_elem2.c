@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 18:10:55 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/26 19:30:01 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/27 15:02:37 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int		add_lum(char **split, t_scn *scn, int dir)
 {
-	char	**spos;
-	char	**srgb;
 	t_lum	*lum;
 
 	if (ft_tablen(split) != 4)
@@ -23,20 +21,16 @@ int		add_lum(char **split, t_scn *scn, int dir)
 	if (!(lum = malloc(sizeof(t_lum))))
 		handle_error("Malloc failed", MALLOC_FAIL, scn);
 	ft_lstadd_front(&(scn->lums), ft_lstnew(lum));
-	spos = ft_split(split[1], ",");
+	ft_bzero(lum, sizeof(t_lum));
 	lum->I = ft_atod(split[2]);
-	srgb = ft_split(split[3], ",");
-	if (ft_tablen(srgb) != 3 || ft_tablen(spos) != 3)
-	{
-		ft_abort(spos);
-		ft_abort(srgb);
+	if (strto_vect(&lum->vec, split[1], 0) ||
+					strto_vect(&lum->color, split[3], 1))
 		return (WRONG_ARG);
-	}
-	lum->vec = tabto_vect(spos);
-	lum->color = tabto_lumrgb(srgb);
+	if (dir && norm(lum->vec) < EPSILON)
+		return (WRONG_ARG);
+	else if (dir)
+		lum->vec = normalize(lum->vec);
 	lum->dir = dir;
-	ft_abort(spos);
-	ft_abort(srgb);
 	return (0);
 }
 
@@ -57,8 +51,6 @@ int		set_sph_disruption(char *c, t_sph *sph, t_scn *scn)
 
 int		add_sph(char **split, t_scn *scn)
 {
-	char	**spos;
-	char	**srgb;
 	t_sph	*sph;
 
 	if (ft_tablen(split) != 4 && ft_tablen(split) != 5)
@@ -66,19 +58,11 @@ int		add_sph(char **split, t_scn *scn)
 	if (!(sph = malloc(sizeof(t_sph))))
 		handle_error("Malloc failed", MALLOC_FAIL, scn);
 	ft_lstadd_front(&(scn->sphs), ft_lstnew(sph));
-	spos = ft_split(split[1], ",");
+	ft_bzero(sph, sizeof(t_sph));
 	sph->radius = ft_atod(split[2]) / 2;
-	srgb = ft_split(split[3], ",");
-	if (ft_tablen(spos) != 3 || ft_tablen(srgb) != 3)
-	{
-		ft_abort(spos);
-		ft_abort(srgb);
+	if (strto_vect(&sph->center, split[1], 0) ||
+				strto_rgb(&sph->color, split[3]))
 		return (WRONG_ARG);
-	}
-	sph->center = tabto_vect(spos);
-	sph->color = tabto_rgb(srgb);
-	ft_abort(spos);
-	ft_abort(srgb);
 	if (ft_tablen(split) == 5)
 		return (set_sph_disruption(split[4], sph, scn));
 	return (0);
@@ -106,9 +90,6 @@ int		set_pln_disruption(char *c, t_pln *pln, t_scn *scn)
 
 int		add_pln(char **split, t_scn *scn)
 {
-	char	**spos;
-	char	**sdir;
-	char	**srgb;
 	t_pln	*pln;
 
 	if (ft_tablen(split) != 4 && ft_tablen(split) != 5)
@@ -116,22 +97,15 @@ int		add_pln(char **split, t_scn *scn)
 	if (!(pln = malloc(sizeof(t_pln))))
 		handle_error("Malloc failed", MALLOC_FAIL, scn);
 	ft_lstadd_front(&(scn->plns), ft_lstnew(pln));
-	spos = ft_split(split[1], ",");
-	sdir = ft_split(split[2], ",");
-	srgb = ft_split(split[3], ",");
-	if (ft_tablen(srgb) != 3 || ft_tablen(spos) != 3 || ft_tablen(sdir) != 3)
-	{
-		ft_abort(spos);
-		ft_abort(sdir);
-		ft_abort(srgb);
+	ft_bzero(pln, sizeof(t_pln));
+	if (strto_vect(&pln->origin, split[1], 0) ||
+			strto_vect(&pln->normale, split[2], 0) ||
+			strto_rgb(&pln->color, split[3]))
 		return (WRONG_ARG);
-	}
-	pln->origin = tabto_vect(spos);
-	pln->normale = normalize(tabto_vect(sdir));
-	pln->color = tabto_rgb(srgb);
-	ft_abort(spos);
-	ft_abort(sdir);
-	ft_abort(srgb);
+	if (norm(pln->normale) < EPSILON)
+		return (WRONG_ARG);
+	else
+		pln->normale = normalize(pln->normale);
 	set_pln(pln);
 	if (ft_tablen(split) == 5)
 		set_pln_disruption(split[4], pln, scn);

@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 18:59:03 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/26 19:30:01 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/27 15:34:57 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ t_rgb	get_xpm_color(t_data xpm, double x, double y)
 	int		trgb;
 	t_rgb	color;
 
-	column = (int)(xpm.H * y);
-	row = (int)(xpm.H * x);
+	column = (int)(xpm.h * y);
+	row = (int)(xpm.h * x);
 	trgb = *((unsigned int*)(xpm.addr +
 			(row * xpm.line_length + column * (xpm.bits_per_pixel / 8))));
 	color.b = trgb & 0xFF;

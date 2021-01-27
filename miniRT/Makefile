@@ -22,6 +22,7 @@ SRCS		= main/main.c \
 			collisions/rgb_op.c \
 			parse/parse_file.c \
 			parse/parseutils.c \
+			parse/parseutils2.c \
 			parse/add_elem.c \
 			parse/add_elem2.c \
 			parse/add_elem3.c \
@@ -32,12 +33,19 @@ SRCSS		= ${addprefix srcs/, ${SRCS}}
 
 OBJS		= ${SRCSS:.c=.o}
 
+HEADERS		= includes/basics.h \
+			includes/elems.h \
+			includes/libftutils.h \
+			includes/parse.h \
+			includes/minirt.h \
+			srcs/get_next_line/get_next_line.h
+
 OPENGL		= -lXext -lX11 -lm -lbsd
 CFLAGS		= -Wall -Wextra -Werror -Iincludes -Imlx_linux -lpthread -O0 -g 
 
 all:		${NAME}
 
-$(NAME):	${OBJS}
+$(NAME):	${OBJS} ${HEADERS}
 			make -C mlx_linux
 			gcc -o ${NAME} ${OBJS} ${CFLAGS} mlx_linux/libmlx.a $(OPENGL)
 

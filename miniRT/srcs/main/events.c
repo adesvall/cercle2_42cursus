@@ -6,11 +6,11 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 11:29:17 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/26 19:30:01 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/27 15:45:18 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minirt.h"
+#include "minirt.h"
 
 void	free_cams_img(t_list *cams, void *mlx)
 {
@@ -25,12 +25,27 @@ void	free_cams_img(t_list *cams, void *mlx)
 	}
 }
 
+void	free_texs_img(t_list *texs, void *mlx)
+{
+	void	*ptr;
+
+	while (texs)
+	{
+		ptr = ((t_data*)texs->content)->img;
+		if (ptr)
+			mlx_destroy_image(mlx, ptr);
+		texs = texs->next;
+	}
+}
+
 void	clean_scene(t_scn *scn)
 {
 	free_cams_img(scn->cams, scn->mlx);
+	free_texs_img(scn->texs, scn->mlx);
 	if (scn->sky.img)
 		mlx_destroy_image(scn->mlx, scn->sky.img);
 	ft_lstclear(&scn->cams, free);
+	ft_lstclear(&scn->texs, NULL);
 	ft_lstclear(&scn->sphs, free);
 	ft_lstclear(&scn->lums, free);
 	ft_lstclear(&scn->plns, free);
@@ -63,23 +78,4 @@ int		exit_and_free(t_scn *scn)
 	}
 	exit(0);
 	return (0);
-}
-
-void	reload_scn(t_scn *scn)
-{
-	t_cam	*cam;
-
-	clean_scene(scn);
-	scn->ambI = 0;
-	parse_file(scn);
-	scn->actualcam = scn->cams;
-	cam = scn->actualcam->content;
-	scn->actuallum = scn->lums;
-	scn->sl_obj.pos = &cam->origin;
-	scn->sl_obj.dir = &cam->dir;
-	create_all_img(scn);
-	scn->actualcam = scn->cams;
-	scn->actuallum = scn->lums;
-	printf("The actual Camera is selected.\n");
-	mlx_put_image_to_window(scn->mlx, scn->mlx_win, cam->data.img, 0, 0);
 }
