@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 11:29:17 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/27 15:45:18 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/27 16:20:06 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	clean_scene(t_scn *scn)
 	ft_lstclear(&scn->cyls, free);
 	ft_lstclear(&scn->dsks, free);
 	ft_lstclear(&scn->sqrs, free);
+	ft_lstclear(&scn->cubs, free);
+
 }
 
 int		handle_error(char *msg, int err, t_scn *scn)
@@ -64,6 +66,8 @@ int		handle_error(char *msg, int err, t_scn *scn)
 		mlx_clear_window(scn->mlx, scn->mlx_win);
 		mlx_destroy_window(scn->mlx, scn->mlx_win);
 	}
+	mlx_destroy_display(scn->mlx);
+	free(scn->mlx);
 	exit(err);
 	return (err);
 }
@@ -76,6 +80,8 @@ int		exit_and_free(t_scn *scn)
 		mlx_clear_window(scn->mlx, scn->mlx_win);
 		mlx_destroy_window(scn->mlx, scn->mlx_win);
 	}
+	mlx_destroy_display(scn->mlx);
+	free(scn->mlx);
 	exit(0);
 	return (0);
 }

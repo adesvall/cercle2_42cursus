@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 16:22:20 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/26 19:30:01 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/01/28 00:25:22 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,15 @@ void	create_img(t_cam *cam, t_scn *scn)
 {
 	int			nthr;
 	pthread_t	t[4];
+	//pthread_attr_t	attr;
 	t_targs		arg[4];
 
+	//attr = (pthread_attr_t){0};
 	set_cam(cam, scn->res.w);
 	nthr = 0;
 	while (nthr < 4)
 	{
-		arg[nthr] = (t_targs){nthr * scn->res.h / 4, cam, scn};
+		arg[nthr] = (t_targs){nthr * (scn->res.h / 4), cam, scn};
 		pthread_create(&t[nthr], NULL, (void*)fill_img, &arg[nthr]);
 		nthr++;
 	}
@@ -93,7 +95,9 @@ void	create_img(t_cam *cam, t_scn *scn)
 	while (nthr < 4)
 	{
 		if (t[nthr])
+		{
 			pthread_join(t[nthr], NULL);
+		}
 		nthr++;
 	}
 }
