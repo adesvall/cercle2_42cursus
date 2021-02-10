@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:02:16 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/27 15:39:02 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/02/10 14:39:10 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ void	change_cam(t_scn *scn)
 	scn->sl_obj.pos = &cam->origin;
 	scn->sl_obj.dir = &cam->dir;
 	create_img(cam, scn);
-	printf("The actual Camera is selected.\n");
+			printf("You selected Camera at (%.0f,%.0f,%.0f) "
+					"with direction (%.2f,%.2f,%.2f).\n",
+					scn->sl_obj.pos->x, scn->sl_obj.pos->y, scn->sl_obj.pos->z,
+					scn->sl_obj.dir->x, scn->sl_obj.dir->y, scn->sl_obj.dir->z);
 	mlx_put_image_to_window(scn->mlx, scn->mlx_win, cam->data.img, 0, 0);
 }
 

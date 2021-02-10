@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 02:40:13 by adesvall          #+#    #+#             */
-/*   Updated: 2020/12/19 18:18:00 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/02/10 16:25:35 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 int		is_endofline(char *buf);
 int		get_next_line(int fd, char **line);
 void	*ft_memmove(void *dest, const void *src, size_t n);
-char	*join_and_realloc(char const *s1, char const *s2);
+char	*join_and_realloc(char *s1, char const *s2);
 size_t	ft_strlen(const char *s);
 
 #endif

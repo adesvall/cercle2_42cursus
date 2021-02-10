@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:08:36 by adesvall          #+#    #+#             */
-/*   Updated: 2020/11/26 17:53:09 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/02/10 16:25:23 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-char	*join_and_realloc(char const *s1, char const *s2)
+char	*join_and_realloc(char *s1, char const *s2)
 {
 	size_t	lens1;
 	size_t	lens2;
@@ -71,7 +71,7 @@ char	*join_and_realloc(char const *s1, char const *s2)
 	ft_memmove(res, s1, lens1);
 	ft_memmove(res + lens1, s2, lens2);
 	res[lentot - 1] = '\0';
-	free((void*)s1);
+	free(s1);
 	return (res);
 }
 

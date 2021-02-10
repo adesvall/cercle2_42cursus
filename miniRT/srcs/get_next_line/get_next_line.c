@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 02:38:25 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/26 18:46:56 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/02/10 16:24:42 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,6 @@ int		get_next_line(int fd, char **line)
 	if (resread == 1 || is_endofline(ligne))
 		return (1);
 	free(ligne);
+	ligne = NULL;
 	return (resread);
 }
