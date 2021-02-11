@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:02:16 by adesvall          #+#    #+#             */
-/*   Updated: 2021/02/10 14:39:10 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/02/11 14:33:49 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void	move_vect(int key, t_vect *pos, t_vect *dir)
 		*dir = turn_vect(*dir, M_PI / 12 * ((key == 65361) - (key == 65363)),
 								M_PI / 20 * ((key == 65364) - (key == 65362)));
 	else
-		translate(pos, 5 * ((key == 122) - (key == 115)),
-						5 * ((key == 113) - (key == 100)),
-						5 * ((key == 120) - (key == 119)));
+		translate(pos, 5.05 * ((key == 122) - (key == 115)),
+						5.05 * ((key == 113) - (key == 100)),
+						5.05 * ((key == 120) - (key == 119)));
 }
 
 void	move_selection(int key, t_scn *scn)

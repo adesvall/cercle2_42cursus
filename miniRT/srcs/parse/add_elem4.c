@@ -6,11 +6,22 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 18:14:09 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/27 15:08:43 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/02/11 14:01:07 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+int		set_reflect(char **split, t_scn *scn)
+{
+	if (ft_tablen(split) != 3)
+		return (WRONG_LINE);
+	if ((scn->reflect = ft_atod(split[1])) > 1 || scn->reflect < 0)
+		return (WRONG_ARG);
+	if ((scn->rdepth = ft_atoi(split[2])) > 10 || scn->rdepth < 0)
+		return (WRONG_ARG);
+	return (0);
+}
 
 void	add_caps(t_cyl *cyl, t_scn *scn)
 {

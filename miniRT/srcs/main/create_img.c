@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 21:03:35 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/26 19:30:01 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/02/11 13:59:40 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ t_rgb	get_color(t_scn *scn, t_ray ray, int rfi)
 		return (scn->sky.img ? get_sky_coord(scn, ray) : (t_rgb){0, 0, 0});
 	coef = get_lum_coef(scn, coli, res.normale);
 	res.color = mult_col(5, coef, res.color);
-	if (REFLECT > EPSILON && rfi > 0)
+	if (scn->reflect > EPSILON && rfi > 0)
 	{
 		ray = (t_ray){coli, normalize(sum(ray.dir,
 						mult(-2 * dot(ray.dir, res.normale), res.normale)))};
-		res.color = add_reflect(REFLECT, res.color,
+		res.color = add_reflect(scn->reflect, res.color,
 												get_color(scn, ray, rfi - 1));
 	}
 	return (res.color);

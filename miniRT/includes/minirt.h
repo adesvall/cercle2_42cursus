@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 20:40:00 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/27 15:41:37 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/02/11 14:31:13 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # ifndef M_PI
 #  define M_PI 3.1415926535897932384626
 # endif
-# define EPSILON 0.00001
+# define EPSILON 0.001
 
 # define OPEN_FAIL 1
 # define IMG_FAIL 2
@@ -40,9 +40,6 @@
 # define WRONG_LINE 6
 # define WRONG_ARG 7
 # define MALLOC_FAIL 100
-
-# define REFLECT 0
-# define R_DEPTH 0
 
 void		parse_file(t_scn *scn);
 int			strto_vect(t_vect *dst, char *str, int isrgb);

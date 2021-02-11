@@ -6,11 +6,11 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 18:57:00 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/26 19:30:01 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/02/11 14:43:06 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minirt.h"
+#include "minirt.h"
 
 int		parse_line2(char **split, t_scn *scn)
 {
@@ -40,6 +40,8 @@ int		parse_line(char **split, t_scn *scn)
 		return (set_sky(split, scn));
 	if (strcmp(split[0], "antialiasing") == 0)
 		return (set_anti(split, scn));
+	if (strcmp(split[0], "reflect") == 0)
+		return (set_reflect(split, scn));
 	if (strcmp(split[0], "c") == 0)
 		return (add_cam(split, scn));
 	if (strcmp(split[0], "l") == 0)

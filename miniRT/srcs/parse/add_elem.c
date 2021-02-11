@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 13:36:56 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/26 19:30:01 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/02/11 14:00:46 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int		set_anti(char **split, t_scn *scn)
 		return (WRONG_LINE);
 	if (ft_tablen(split) != 2)
 		return (WRONG_LINE);
-	if ((scn->antialiasing = atoi(split[1])) >= 10 || scn->antialiasing < 0)
+	if ((scn->antialiasing = ft_atoi(split[1])) >= 10 || scn->antialiasing < 0)
 		return (WRONG_ARG);
 	return (0);
 }

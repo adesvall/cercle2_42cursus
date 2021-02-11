@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 11:29:17 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/27 16:20:06 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/02/11 14:41:04 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	clean_scene(t_scn *scn)
 {
 	free_cams_img(scn->cams, scn->mlx);
 	free_texs_img(scn->texs, scn->mlx);
-	if (scn->sky.img)
-		mlx_destroy_image(scn->mlx, scn->sky.img);
 	ft_lstclear(&scn->cams, free);
 	ft_lstclear(&scn->texs, NULL);
 	ft_lstclear(&scn->sphs, free);

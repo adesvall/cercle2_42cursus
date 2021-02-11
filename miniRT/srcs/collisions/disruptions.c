@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 18:59:03 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/27 15:34:57 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/02/11 14:59:35 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ t_rgb	apply_color_disruption(t_vect normale, t_sph *sph)
 	{
 		b = sqrt(normale.y * normale.y + normale.x * normale.x);
 		return (get_xpm_color(sph->texture,
-								atan2(normale.x, normale.y) / (2 * M_PI) + 0.5,
-								atan(normale.z / b) / M_PI + 0.5));
+								-atan(normale.z / b) / M_PI + 0.5,
+								-atan2(normale.x, normale.y) / M_PI + 0.5));
 	}
 	return (sph->color);
 }

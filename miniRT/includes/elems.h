@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:48:36 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/27 15:16:28 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/02/11 13:52:15 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ typedef struct	s_scn
     void    	*mlx_win;
 	char		*filename;
 	int			antialiasing;
+	double		reflect;
+	int			rdepth;		
 	t_couple	res;
 	double 		ambI;
 	t_data		sky;

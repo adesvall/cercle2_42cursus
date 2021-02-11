@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 16:22:20 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/28 00:25:22 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/02/11 13:59:07 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_rgb	raytrace(t_scn *scn, t_cam *cam, int i, int j)
 	{
 		ray = find_ray(cam, (double)i + (nr / anti - anti / 2) / (double)anti,
 						(double)j + (nr % anti - anti / 2) / (double)anti, scn);
-		sumrgb = sum_col(sumrgb, get_color(scn, ray, R_DEPTH));
+		sumrgb = sum_col(sumrgb, get_color(scn, ray, scn->rdepth));
 		nr++;
 	}
 	return (mult_col(1.0 / nr, (t_vect){1, 1, 1}, sumrgb));

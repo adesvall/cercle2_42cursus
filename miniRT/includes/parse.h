@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 21:15:50 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/27 15:56:33 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/02/11 13:57:27 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	add_caps(t_cyl *cyl, t_scn *scn);
 void	set_caps(t_cyl *cyl, t_dsk *dsk1, t_dsk *dsk2);
 int		set_res(char **split, t_scn *scn);
 int		set_amblum(char **split, t_scn *scn);
+int		set_reflect(char **split, t_scn *scn);
 int		set_sky(char **split, t_scn *scn);
 int		set_filter(char c, t_cam *cam);
 int		set_anti(char **split, t_scn *scn);
