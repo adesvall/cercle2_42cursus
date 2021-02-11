@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 21:01:38 by adesvall          #+#    #+#             */
-/*   Updated: 2021/01/27 13:44:35 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/02/11 16:06:14 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ int		main(int argc, char **argv)
 		exit(1);
 	}
 	ft_bzero(&scn, sizeof(t_scn));
+	scn.mlx = mlx_init();
 	if (!ft_strend_is(scn.filename = argv[1], ".rt"))
 		return (handle_error("not a .rt file", OPEN_FAIL, &scn));
-	scn.mlx = mlx_init();
 	parse_file(&scn);
 	printf("\033[0;32mRendering miniRT...\n\033[0m");
 	if (argc == 3 && !ft_strcmp(argv[2], "-save"))
