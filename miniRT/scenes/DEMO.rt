@@ -1,11 +1,7 @@
-antialiasing 1
-R	1920 1080
-#R 400 300
+R 400 300
 A	.1							225,255,225
 c	-30,-10,6	1,0,-0.1 100
-#c	0,0,50		0,0.1,-1 110
-reflect 0.2 1
-
+c	0,0,50		0,0.1,-1 110
 
 sp	10,-5,5     6               0,140,140   color-disr
 sp	10,-5,12    6               140,140,0   textures/golfball.xpm
@@ -20,4 +16,4 @@ pl 0,0,0 0,0,1 72,31,10 textures/dirt.xpm
 #pl 0,0,20 0,0,1 152,151,190 checkered
 #pl 20,0,0 1,0,0 172,131,110 normal-disr
 cyc 10,5,5 -0.2,-0.1,1 10 4 50,50,99
-skybox skyboxes/forest.xpm
+skybox skyboxes/moon.xpm

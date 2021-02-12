@@ -1,0 +1,10 @@
+R 800 600
+reflect 0.5 1
+
+c 150,0,7 -1,0,0 80
+
+sp -50,0,25 10 255,255,255 textures/mercury.xpm
+ld 2,0,-1 0.05 255,255,255
+ld -1,0,0 0.5 255,255,255
+pl 0,0,0 0,0,1 0,0,100 normal-disr
+skybox skyboxes/moon.xpm

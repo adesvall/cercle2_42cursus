@@ -14,8 +14,17 @@
 
 t_rgb	filter(t_rgb rgb, char filter)
 {
+	double	i;
+
 	if (filter == 0)
 		return (rgb);
+	if (filter == 'S')
+	{
+		i = (double)(rgb.r + rgb.g + rgb.b) / (3 * 255);
+		return ((t_rgb){(int)limit_color(i * 174),
+						(int)limit_color(i * 137),
+						(int)limit_color(i * 100)});
+	}
 	rgb.r = filter == 'R' ? rgb.r : 0;
 	rgb.g = filter == 'G' ? rgb.g : 0;
 	rgb.b = filter == 'B' ? rgb.b : 0;
@@ -79,10 +88,8 @@ void	create_img(t_cam *cam, t_scn *scn)
 {
 	int			nthr;
 	pthread_t	t[4];
-	//pthread_attr_t	attr;
 	t_targs		arg[4];
 
-	//attr = (pthread_attr_t){0};
 	set_cam(cam, scn->res.w);
 	nthr = 0;
 	while (nthr < 4)

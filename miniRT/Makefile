@@ -41,7 +41,7 @@ HEADERS		= includes/basics.h \
 			srcs/get_next_line/get_next_line.h
 
 OPENGL		= -lXext -lX11 -lm -lbsd
-CFLAGS		= -Wall -Wextra -Werror -Iincludes -Imlx_linux -lpthread -O0 -g 
+CFLAGS		= -Wall -Wextra -Werror -Iincludes -Imlx_linux -lpthread
 
 all:		${NAME}
 

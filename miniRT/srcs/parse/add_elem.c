@@ -61,7 +61,7 @@ int		set_sky(char **split, t_scn *scn)
 
 int		set_filter(char c, t_cam *cam)
 {
-	if (c != 'R' && c != 'G' && c != 'B')
+	if (c != 'R' && c != 'G' && c != 'B' && c != 'S')
 		return (WRONG_ARG);
 	cam->filter = c;
 	return (0);

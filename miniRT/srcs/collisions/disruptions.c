@@ -49,16 +49,16 @@ t_rgb	apply_texture(t_vect coli, t_pln *pln)
 	return (pln->color);
 }
 
-t_vect	apply_normal_disruption(t_vect coli, t_pln *pln)
+t_vect	apply_normal_disruption(t_vect coli, t_pln *pln, t_vect normale)
 {
 	double	x;
 
 	if (pln->disruption == 'n')
 	{
-		x = sin(dot(pln->right, diff(coli, pln->origin)));
-		return (normalize(sum(pln->normale, mult(x, pln->right))));
+		x = 0.05 * sin(dot(pln->right, diff(coli, pln->origin)));
+		return (normalize(sum(normale, mult(x, pln->right))));
 	}
-	return (pln->normale);
+	return (normale);
 }
 
 t_rgb	get_xpm_color(t_data xpm, double x, double y)

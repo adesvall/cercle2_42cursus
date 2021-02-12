@@ -44,7 +44,7 @@ t_vect	get_lum_coef(t_scn *scn, t_vect coli, t_vect normale)
 		if (collision_any((t_ray){coli, lumdir}, scn, 0, c).elem == NULL)
 		{
 			c = lum->I / 255 * dot(normale, lumdir);
-			if (lum->dir)
+			if (!lum->dir)
 				c *= 1000 / pow(norm(diff(lum->vec, coli)), 2);
 			c = (c > 0) ? c : 0;
 			coef = sum(coef, mult(c, lum->color));

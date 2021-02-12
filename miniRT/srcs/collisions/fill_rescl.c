@@ -38,7 +38,7 @@ t_vect		fill_res_pln(t_rescl *res, t_ray ray, t_vect col)
 	res->normale = pln->normale;
 	if (dot(res->normale, ray.dir) > 0)
 		res->normale = mult(-1, res->normale);
-	res->normale = apply_normal_disruption(col, pln);
+	res->normale = apply_normal_disruption(col, pln, res->normale);
 	res->color = apply_texture(col, pln);
 	res->pos = &pln->origin;
 	res->dir = &pln->normale;

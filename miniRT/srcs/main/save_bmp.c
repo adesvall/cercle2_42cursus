@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minirt.h"
+#include "minirt.h"
 
 unsigned char	*file_header_bmp(int filesize, t_scn *scn)
 {

@@ -34,6 +34,7 @@ void	free_texs_img(t_list *texs, void *mlx)
 		ptr = ((t_data*)texs->content)->img;
 		if (ptr)
 			mlx_destroy_image(mlx, ptr);
+		((t_data*)texs->content)->img = NULL;
 		texs = texs->next;
 	}
 }
@@ -52,7 +53,9 @@ void	clean_scene(t_scn *scn)
 	ft_lstclear(&scn->dsks, free);
 	ft_lstclear(&scn->sqrs, free);
 	ft_lstclear(&scn->cubs, free);
-
+	scn->antialiasing = 0;
+	scn->reflect = 0;
+	scn->rdepth = 0;
 }
 
 int		handle_error(char *msg, int err, t_scn *scn)

@@ -41,10 +41,10 @@ void	change_cam(t_scn *scn)
 	scn->sl_obj.pos = &cam->origin;
 	scn->sl_obj.dir = &cam->dir;
 	create_img(cam, scn);
-			printf("You selected Camera at (%.0f,%.0f,%.0f) "
-					"with direction (%.2f,%.2f,%.2f).\n",
-					scn->sl_obj.pos->x, scn->sl_obj.pos->y, scn->sl_obj.pos->z,
-					scn->sl_obj.dir->x, scn->sl_obj.dir->y, scn->sl_obj.dir->z);
+	printf("You selected Camera at (%.0f,%.0f,%.0f) "
+			"with direction (%.2f,%.2f,%.2f).\n",
+			scn->sl_obj.pos->x, scn->sl_obj.pos->y, scn->sl_obj.pos->z,
+			scn->sl_obj.dir->x, scn->sl_obj.dir->y, scn->sl_obj.dir->z);
 	mlx_put_image_to_window(scn->mlx, scn->mlx_win, cam->data.img, 0, 0);
 }
 

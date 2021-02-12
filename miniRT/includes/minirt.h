@@ -91,7 +91,7 @@ int			in_square(t_vect coli, t_sqr car);
 t_abc		abc_solve(double a, double b, double c);
 
 t_rgb		apply_color_disruption(t_vect normale, t_sph *sph);
-t_vect		apply_normal_disruption(t_vect coli, t_pln *pln);
+t_vect		apply_normal_disruption(t_vect coli, t_pln *pln, t_vect normale);
 t_rgb		apply_texture(t_vect coli, t_pln *pln);
 
 void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
