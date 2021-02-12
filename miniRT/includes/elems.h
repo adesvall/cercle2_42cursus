@@ -19,7 +19,7 @@ typedef struct	s_lum
 {
 	int		dir;
 	t_vect	vec;
-	double	I;
+	double	i;
 	t_vect	color;
 }				t_lum;
 
@@ -34,13 +34,14 @@ typedef	struct	s_pln
 	t_data	texture;
 }				t_pln;
 
-typedef struct	s_sqr	t_sqr;
+struct s_sqr;
+
 typedef struct	s_cub
 {
-	t_vect	origin;
-	t_vect	dirs[3];
-	double	side;
-	t_sqr	*sqrs[6];
+	t_vect			origin;
+	t_vect			dirs[3];
+	double			side;
+	struct s_sqr	*sqrs[6];
 }				t_cub;
 
 typedef struct	s_sqr
@@ -54,14 +55,15 @@ typedef struct	s_sqr
 	t_cub	*cub;
 }				t_sqr;
 
-typedef struct	s_cyl	t_cyl;
+struct s_cyl;
+
 typedef struct	s_dsk
 {
-	t_vect	origin;
-	t_vect	normale;
-	double	radius;
-	t_rgb	color;
-	t_cyl	*cyl;
+	t_vect			origin;
+	t_vect			normale;
+	double			radius;
+	t_rgb			color;
+	struct s_cyl	*cyl;
 }				t_dsk;
 
 typedef struct	s_cyl
@@ -97,7 +99,7 @@ typedef struct	s_cam
 	t_vect	dir;
 	t_vect	right;
 	t_vect	down;
-	double 	fov;
+	double	fov;
 	char	filter;
 	double	coef_fov;
 }				t_cam;
@@ -112,16 +114,16 @@ typedef struct	s_sel
 
 typedef struct	s_scn
 {
-	void    	*mlx;
-    void    	*mlx_win;
+	void		*mlx;
+	void		*mlx_win;
 	char		*filename;
 	int			antialiasing;
 	double		reflect;
-	int			rdepth;		
+	int			rdepth;
 	t_couple	res;
-	double 		ambI;
+	double		amb_i;
 	t_data		sky;
-	t_vect		ambCol;
+	t_vect		amb_rgb;
 	t_list		*actualcam;
 	t_list		*actuallum;
 	t_sel		sl_obj;
@@ -139,7 +141,7 @@ typedef struct	s_scn
 
 typedef struct	s_targs
 {
-	int 	i;
+	int		i;
 	t_cam	*cam;
 	t_scn	*scn;
 }				t_targs;

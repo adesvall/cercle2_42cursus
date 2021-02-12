@@ -34,10 +34,10 @@ int		set_amblum(char **split, t_scn *scn)
 {
 	char **splitcol;
 
-	if (ft_tablen(split) != 3 || scn->ambI != 0)
+	if (ft_tablen(split) != 3 || scn->amb_i != 0)
 		return (WRONG_LINE);
-	scn->ambI = ft_atod(split[1]);
-	if (scn->ambI < 0 || scn->ambI > 1)
+	scn->amb_i = ft_atod(split[1]);
+	if (scn->amb_i < 0 || scn->amb_i > 1)
 		return (WRONG_ARG);
 	splitcol = ft_split(split[2], ",");
 	if (ft_tablen(splitcol) != 3)
@@ -45,7 +45,7 @@ int		set_amblum(char **split, t_scn *scn)
 		ft_abort(splitcol);
 		return (WRONG_ARG);
 	}
-	scn->ambCol = tabto_lumrgb(splitcol);
+	scn->amb_rgb = tabto_lumrgb(splitcol);
 	ft_abort(splitcol);
 	return (0);
 }

@@ -56,6 +56,7 @@ void	clean_scene(t_scn *scn)
 	scn->antialiasing = 0;
 	scn->reflect = 0;
 	scn->rdepth = 0;
+	scn->amb_i = 0;
 }
 
 int		handle_error(char *msg, int err, t_scn *scn)

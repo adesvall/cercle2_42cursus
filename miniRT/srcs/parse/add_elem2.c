@@ -22,7 +22,7 @@ int		add_lum(char **split, t_scn *scn, int dir)
 		handle_error("Malloc failed", MALLOC_FAIL, scn);
 	ft_lstadd_front(&(scn->lums), ft_lstnew(lum));
 	ft_bzero(lum, sizeof(t_lum));
-	lum->I = ft_atod(split[2]);
+	lum->i = ft_atod(split[2]);
 	if (strto_vect(&lum->vec, split[1], 0) ||
 					strto_vect(&lum->color, split[3], 1))
 		return (WRONG_ARG);

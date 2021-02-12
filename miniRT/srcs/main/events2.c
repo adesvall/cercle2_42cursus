@@ -17,7 +17,6 @@ void	reload_scn(t_scn *scn)
 	t_cam	*cam;
 
 	clean_scene(scn);
-	scn->ambI = 0;
 	parse_file(scn);
 	scn->actualcam = scn->cams;
 	cam = scn->actualcam->content;
