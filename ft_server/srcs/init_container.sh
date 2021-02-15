@@ -37,11 +37,10 @@ mv wordpress/ /var/www/monsupersite
 mv /tmp/wp-config.php /var/www/monsupersite/wordpress/
 
 # Config wordpress
-cd /var/www/monsupersite/wordpress
 wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
-#wp core install --url='' --title='LE TITRE' --admin_user='adesvall' --admin_email='adesvall@42.student.fr' --skip-email --allow-root
+wp core install --path='/var/www/monsupersite/wordpress' --url='localhost/wordpress' --title='LE TITRE' --admin_user='adesvall' --admin_email='adesvall@42.student.fr' --skip-email --allow-root
 
 service php7.3-fpm start
 service nginx start
