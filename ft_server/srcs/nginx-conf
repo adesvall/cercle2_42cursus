@@ -1,7 +1,7 @@
 server {
 	listen 80;
 	listen [::]:80;
-	server_name painternette;
+	server_name monsupersite;
 	return 301 https://$host$request_uri;
 }
 
@@ -12,10 +12,10 @@ server{
 	
 	server_name monsupersite;
 	
-	ssl_certificate /etc/nginx/ssl/painternette.pem;
-	ssl_certificate_key /etc/nginx/ssl/painternette.key;
+	ssl_certificate /etc/nginx/ssl/monsupersite.pem;
+	ssl_certificate_key /etc/nginx/ssl/monsupersite.key;
 
-	root /var/www/painternette;
+	root /var/www/monsupersite;
 	index index.html index.htm index.nginx-debian.html index.php;
 
 	location / {
