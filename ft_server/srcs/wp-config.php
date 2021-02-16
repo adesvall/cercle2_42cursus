@@ -37,6 +37,9 @@ define( 'DB_CHARSET', 'utf8' );
 /** The Database Collate type. Don't change this if in doubt. */
 define( 'DB_COLLATE', '' );
 
+/** Allow the wp-admin interface to install plugins and themes */
+define( 'FS_METHOD', 'direct' );
+
 /**#@+
  * Authentication Unique Keys and Salts.
  *
@@ -88,4 +91,3 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /** Sets up WordPress vars and included files. */
 require_once( ABSPATH . 'wp-settings.php' );
-
