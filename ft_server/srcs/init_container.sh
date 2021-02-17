@@ -1,9 +1,5 @@
 service mysql start
 
-# Config Access
-chown -R www-data /var/www/*
-chmod -R 755 /var/www/*
-
 # Generate website folder
 mkdir /var/www/monsiteweb && touch /var/www/monsiteweb/index.php
 echo "<?php phpinfo(); ?>" >> /var/www/monsiteweb/index.php
@@ -40,8 +36,12 @@ mv /tmp/wp-config.php /var/www/monsiteweb/wordpress/
 wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
-wp core install --path='/var/www/monsiteweb/wordpress' --url='localhost/wordpress' --title='LE TITRE' --admin_user='adesvall' --admin_email='adesvall@42.student.fr' --skip-email --allow-root
-wp theme install twentyseventeen --activate --allow-root
+wp core install --path='/var/www/monsiteweb/wordpress' --url='localhost/wordpress' --title='LE TITRE' --admin_user='adesvall' --admin_password='shrek' --admin_email='adesvall@42.student.fr' --skip-email --allow-root
+wp theme install --path='/var/www/monsiteweb/wordpress' twentyseventeen --activate --allow-root
+
+# Config Access
+chown -R www-data /var/www
+chmod -R 755 /var/www
 
 service php7.3-fpm start
 service nginx start
