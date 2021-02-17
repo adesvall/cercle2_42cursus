@@ -22,5 +22,6 @@ COPY ./srcs/init_container.sh ./
 COPY ./srcs/nginx-conf ./tmp/
 COPY ./srcs/phpmyadmin.inc.php ./tmp/
 COPY ./srcs/wp-config.php ./tmp/
+COPY ./srcs/autoindex.sh ./tmp/
 
 CMD bash init_container.sh
