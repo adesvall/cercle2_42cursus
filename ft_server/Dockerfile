@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Dockerfile                                         :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: rchallie <rchallie@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/01/06 14:31:22 by rchallie          #+#    #+#              #
-#    Updated: 2020/01/06 14:31:24 by rchallie         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 FROM debian:buster
 
 RUN apt-get update && apt-get install -y procps && apt-get install nano && apt-get install -y wget
@@ -18,10 +6,12 @@ RUN apt-get -y install wget
 RUN apt-get -y install nginx
 RUN apt-get -y install mariadb-server
 
-COPY ./srcs/init_container.sh ./
+COPY ./srcs/set_components.sh ./
 COPY ./srcs/nginx-conf ./tmp/
+COPY ./srcs/phpMyAdmin-4.9.0.1-all-languages.tar.gz ./tmp/
 COPY ./srcs/phpmyadmin.inc.php ./tmp/
+COPY ./srcs/wp-latest.tar.gz ./tmp/
 COPY ./srcs/wp-config.php ./tmp/
 COPY ./srcs/autoindex.sh ./tmp/
 
-CMD bash init_container.sh
+CMD bash set_components.sh
