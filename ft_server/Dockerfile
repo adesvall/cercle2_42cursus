@@ -6,12 +6,12 @@ RUN apt-get -y install wget
 RUN apt-get -y install nginx
 RUN apt-get -y install mariadb-server
 
-COPY ./srcs/set_components.sh ./
 COPY ./srcs/nginx-conf ./tmp/
 COPY ./srcs/phpMyAdmin-4.9.0.1-all-languages.tar.gz ./tmp/
 COPY ./srcs/phpmyadmin.inc.php ./tmp/
 COPY ./srcs/wp-latest.tar.gz ./tmp/
 COPY ./srcs/wp-config.php ./tmp/
 COPY ./srcs/autoindex.sh ./tmp/
+COPY ./srcs/set_components.sh ./
 
 CMD bash set_components.sh
