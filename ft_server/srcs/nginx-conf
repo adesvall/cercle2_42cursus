@@ -2,6 +2,7 @@ server {
 	listen 80;
 	listen [::]:80;
 	server_name monsiteweb;
+	
 	return 301 https://$host$request_uri;
 }
 
@@ -17,9 +18,9 @@ server{
 
 	root /var/www/monsiteweb;
 	index index.html index.htm index.nginx-debian.html index.php;
+	autoindex on;
 
 	location / {
-		autoindex on;
 		try_files $uri $uri/ =404;
 	}
 
