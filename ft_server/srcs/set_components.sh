@@ -28,6 +28,7 @@ cd /tmp/
 mkdir /var/www/monsiteweb/phpmyadmin
 tar -xvf /tmp/phpMyAdmin-4.9.0.1-all-languages.tar.gz --strip-components 1 -C /var/www/monsiteweb/phpmyadmin
 mv /tmp/phpmyadmin.inc.php /var/www/monsiteweb/phpmyadmin/config.inc.php
+rm /var/www/monsiteweb/index.php
 
 tar -xvzf /tmp/wp.tar.gz
 mv wordpress/ /var/www/monsiteweb
