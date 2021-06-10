@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 11:39:07 by user42            #+#    #+#             */
-/*   Updated: 2021/06/10 12:53:04 by user42           ###   ########.fr       */
+/*   Updated: 2021/06/10 15:41:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@
 
 # define IMG_FAIL 2
 # define WINDOW_FAIL 3
+
+typedef struct	s_cplx
+{
+	double	re;
+	double	im;
+}				t_cplx;
 
 typedef struct	s_data
 {
@@ -42,14 +48,17 @@ typedef struct  s_info
 	t_data	*data;
 	int		resw;
 	int		resh;
+	double	zoom;
+	t_cplx	offset;
 }               t_info;
 
-typedef struct	s_cplx
-{
-	double	re;
-	double	im;
-}				t_cplx;
-
 void    create_img(t_info *info);
+double  sqlength(t_cplx z);
+t_cplx	add(t_cplx z1, t_cplx z2);
+t_cplx	next_iter(t_cplx z, t_cplx c);
+int		getcolor(int j, int i, t_info *info);
+
+int		mouse_press(int button, int x, int y, t_info *info);
+
 
 #endif

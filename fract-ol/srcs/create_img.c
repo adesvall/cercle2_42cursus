@@ -6,16 +6,11 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 12:17:24 by user42            #+#    #+#             */
-/*   Updated: 2021/06/10 12:50:36 by user42           ###   ########.fr       */
+/*   Updated: 2021/06/10 14:51:49 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fract-ol.h"
-
-int		create_trgb(int t, int r, int g, int b)
-{
-	return (t << 24 | r << 16 | g << 8 | b);
-}
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -30,15 +25,15 @@ void    create_img(t_info *info)
     t_data *data;
     int     i, j;
     int     color;
-    
-    color = create_trgb(0, 255, 0, 0);
+
     data = info->data;
-    i=0;
+    i = 0;
     while (i < info->resh)
     {
         j=0;
         while (j < info->resw)
         {
+            color = getcolor(j - info->resw / 2, i - info->resh / 2, info);
             my_mlx_pixel_put(data, j, i, color);
             j++;
         }
