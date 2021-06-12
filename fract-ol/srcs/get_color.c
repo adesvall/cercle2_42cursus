@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 14:20:48 by user42            #+#    #+#             */
-/*   Updated: 2021/06/10 15:54:07 by user42           ###   ########.fr       */
+/*   Updated: 2021/06/12 19:48:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int		getcolor(int j, int i, t_info *info)
     c = info->offset;
     c.re += j / info->zoom;
     c.im += -i / info->zoom;
-	steps = iter((t_cplx){0, 0}, c, MAX_ITER);
+	steps = iter(c, (t_cplx){0.285, 0.013}, MAX_ITER);
     if (steps < MAX_ITER)
-        return (create_trgb(0, (3 * steps) % 256, (2 * steps) % 256, (5 * steps) % 256));
+        return (create_trgb(0, (steps * 5) % 256, (steps * 2) % 256, (steps * 7) % 256));
     return (create_trgb(0, 0, 0, 0));
 }

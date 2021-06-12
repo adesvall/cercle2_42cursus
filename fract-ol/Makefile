@@ -9,7 +9,7 @@ OBJS		= ${SRCSS:.c=.o}
 HEADERS		= includes/fract-ol.h
 
 OPENGL		= -lXext -lX11 -lm -lbsd
-CFLAGS		= -Wall -Wextra -Werror -Iincludes -Imlx_linux
+CFLAGS		= -Wall -Wextra -Werror -Iincludes -Imlx_linux -O3
 
 all:		${NAME}
 

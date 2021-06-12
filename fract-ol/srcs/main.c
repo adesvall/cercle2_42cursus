@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 11:36:21 by user42            #+#    #+#             */
-/*   Updated: 2021/06/10 15:24:01 by user42           ###   ########.fr       */
+/*   Updated: 2021/06/12 19:43:05 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	create_window(t_info *info)
     info->resw = size_w;
     info->resh = size_h;
 	if (!(info->mlx_win = mlx_new_window(info->mlx,
-										size_w, size_h, "frat-ol")))
+										info->resw, info->resh, "frat-ol")))
 		handle_error("Fail to create Minilibx window", WINDOW_FAIL, info);
 	mlx_mouse_hook(info->mlx_win, mouse_press, info);
 	mlx_hook(info->mlx_win, ClientMessage, NoEventMask, exit_and_free, info);
