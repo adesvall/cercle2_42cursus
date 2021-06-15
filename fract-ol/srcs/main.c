@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 11:36:21 by user42            #+#    #+#             */
-/*   Updated: 2021/06/12 19:43:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/06/15 17:49:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int		exit_and_free(t_info *info, int code)
 	}
 	mlx_destroy_display(info->mlx);
 	free(info->mlx);
+	free(info->julia);
 	exit(code);
 	return (0);
 }
@@ -59,12 +60,33 @@ void	create_window(t_info *info)
 	mlx_loop(info->mlx);
 }
 
-int main()
+int main(int argc, char **argv)
 {
     t_info info;
     t_data  data;
 
-    info.mlx = mlx_init();
+	if (!ft_strcmp(argv[1], "-mandel") && argc == 2)
+	{
+		info.julia = NULL;
+		printf("Mandelbrot Set\n");
+	}
+	else if (!ft_strcmp(argv[1], "-julia") && argc == 4)
+	{
+		info.julia = malloc(sizeof(t_cplx));
+		info.julia->re = ft_atod(argv[2]);
+		info.julia->im = ft_atod(argv[3]);
+		printf("Julia's Set for c = %f + %f i\n", info.julia->re, info.julia->im);
+	}
+	else
+	{
+		printf("Wrong arguments.\n");
+		printf("Try for example :\n");
+		printf("   ./fract-ol -mandel\n");
+		printf("   ./fract-ol -julia 0.285 0.013\n");
+		return (1);
+	}
+	
+	info.mlx = mlx_init();
     info.data = &data;
 
 	info.zoom = 500;

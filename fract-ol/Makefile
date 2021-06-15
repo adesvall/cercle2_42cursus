@@ -1,6 +1,6 @@
 NAME		= fract-ol
 
-SRCS		= main.c create_img.c complex.c get_color.c events.c
+SRCS		= main.c create_img.c complex.c get_color.c events.c utils.c
 
 SRCSS		= ${addprefix srcs/, ${SRCS}}
 

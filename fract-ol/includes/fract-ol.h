@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 11:39:07 by user42            #+#    #+#             */
-/*   Updated: 2021/06/10 15:41:04 by user42           ###   ########.fr       */
+/*   Updated: 2021/06/15 17:07:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,13 @@ typedef struct  s_info
 	t_data	*data;
 	int		resw;
 	int		resh;
+	t_cplx	*julia;
 	double	zoom;
 	t_cplx	offset;
 }               t_info;
+
+int		ft_strcmp(const char *s1, const char *s2);
+double	ft_atod(const char *str);
 
 void    create_img(t_info *info);
 double  sqlength(t_cplx z);
