@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fract-ol.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 11:39:07 by user42            #+#    #+#             */
-/*   Updated: 2021/06/15 17:07:11 by user42           ###   ########.fr       */
+/*   Updated: 2021/06/16 17:40:28 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <X11/keysym.h>
 # include <math.h>
 
-
+# define WRONG_ARGUMENT 1
 # define IMG_FAIL 2
 # define WINDOW_FAIL 3
 
@@ -44,13 +44,14 @@ typedef struct	s_data
 typedef struct  s_info
 {
     void    *mlx;
-    void    *mlx_win;
-	t_data	*data;
 	int		resw;
 	int		resh;
-	t_cplx	*julia;
+    void    *mlx_win;
+	t_data	*data;
 	double	zoom;
 	t_cplx	offset;
+	int		color_range;
+	t_cplx	*julia;
 }               t_info;
 
 int		ft_strcmp(const char *s1, const char *s2);
@@ -63,6 +64,9 @@ t_cplx	next_iter(t_cplx z, t_cplx c);
 int		getcolor(int j, int i, t_info *info);
 
 int		mouse_press(int button, int x, int y, t_info *info);
+int		get_keypress(int key, t_info *info);
 
+int		exit_and_free(t_info *info, int code);
+int     handle_error(char *msg, int err, t_info *info);
 
 #endif
