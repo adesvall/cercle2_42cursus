@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 15:16:52 by user42            #+#    #+#             */
-/*   Updated: 2021/06/16 18:21:04 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/06/16 18:41:23 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int		exit_and_free(t_info *info, int code)
 {
-	mlx_destroy_image(info->mlx, info->data->img);
+	if (info->data->img)
+		mlx_destroy_image(info->mlx, info->data->img);
 	if (info->mlx_win)
 	{
 		mlx_clear_window(info->mlx, info->mlx_win);

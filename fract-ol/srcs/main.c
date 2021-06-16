@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 11:36:21 by user42            #+#    #+#             */
-/*   Updated: 2021/06/16 18:35:57 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/06/16 18:40:22 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int main(int argc, char **argv)
 	else
 		return (print_examples());
 	info.mlx = mlx_init();
+	data.img = NULL;
 	info.data = &data;
 	info.zoom = 300;
 	info.offset = (t_cplx){0, 0};
