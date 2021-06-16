@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 15:16:52 by user42            #+#    #+#             */
-/*   Updated: 2021/06/16 18:18:57 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/06/16 18:21:04 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int		exit_and_free(t_info *info, int code)
 	}
 	mlx_destroy_display(info->mlx);
 	free(info->mlx);
-	//free(info->julia);
 	exit(code);
 	return (0);
 }
