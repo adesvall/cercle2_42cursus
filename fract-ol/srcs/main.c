@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 11:36:21 by user42            #+#    #+#             */
-/*   Updated: 2021/06/16 18:15:15 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/06/16 18:35:57 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int main(int argc, char **argv)
 	info.data = &data;
 	info.zoom = 300;
 	info.offset = (t_cplx){0, 0};
-	info.color_range = 0;
+	info.color_range = 1;
 	create_window(&info);
 	return (0);
 }
