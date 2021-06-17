@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fract_ol.h                                         :+:      :+:    :+:   */
+/*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 11:39:07 by user42            #+#    #+#             */
-/*   Updated: 2021/06/16 17:40:28 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/06/17 13:41:43 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_info
 	t_cplx	*julia;
 }				t_info;
 
+int		ft_strlen(const char *s);
 int		ft_strcmp(const char *s1, const char *s2);
 double	ft_atod(const char *str);
 
