@@ -12,6 +12,28 @@
 
 #include "fractol.h"
 
+int	ft_strlen(const char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		((char *)s)[i] = 0;
+		i++;
+	}
+}
+
 int	print_examples( void )
 {
 	printf("Wrong arguments.\n");
@@ -24,13 +46,10 @@ int	print_examples( void )
 void	create_window(t_info *info)
 {
 	t_data	*data;
-	int		size_w;
-	int		size_h;
 
 	printf("\033[0;32mCreating window...\n\033[0m");
-	mlx_get_screen_size(info->mlx, &size_w, &size_h);
-	info->resw = 1280;//size_w;
-	info->resh = 720;//size_h;
+	info->resw = 1280;
+	info->resh = 720;
 	info->mlx_win = mlx_new_window(info->mlx, info->resw, \
 										info->resh, "frat-ol");
 	if (!info->mlx_win)
@@ -56,12 +75,9 @@ int	main(int argc, char **argv)
 	t_data	data;
 	t_cplx	julia;
 
-	ft_bzero();
+	ft_bzero(&info, sizeof(t_info));
 	if (!ft_strcmp(argv[1], "-mandel"))
-	{
-		info.julia = NULL;
 		printf("Mandelbrot Set\n");
-	}
 	else if (!ft_strcmp(argv[1], "-julia"))
 	{
 		if (argc > 3)
@@ -77,7 +93,6 @@ int	main(int argc, char **argv)
 	data.img = NULL;
 	info.data = &data;
 	info.zoom = 300;
-	info.offset = (t_cplx){0, 0};
 	info.color_range = 1;
 	create_window(&info);
 	return (0);
