@@ -10,27 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fract-ol.h"
+#include "fractol.h"
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
 
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
 void	create_img(t_info *info)
 {
 	t_data	*data;
-	int		i, j;
+	int		i;
+	int		j;
 	int		color;
 
 	data = info->data;
 	i = 0;
 	while (i < info->resh)
 	{
-		j=0;
+		j = 0;
 		while (j < info->resw)
 		{
 			color = getcolor(j - info->resw / 2, i - info->resh / 2, info);

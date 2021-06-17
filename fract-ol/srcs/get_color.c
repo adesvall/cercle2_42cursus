@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fract-ol.h"
+#include "fractol.h"
 
 #define MAX_ITER 50
 
-int		iter(t_cplx z, t_cplx c, int niter)
+int	iter(t_cplx z, t_cplx c, int niter)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (sqlength(z) < 4 && i < niter)
@@ -27,12 +27,12 @@ int		iter(t_cplx z, t_cplx c, int niter)
 	return (i);
 }
 
-int		create_trgb(int t, int r, int g, int b)
+int	create_trgb(int t, int r, int g, int b)
 {
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-int		getcolor(int j, int i, t_info *info)
+int	getcolor(int j, int i, t_info *info)
 {
 	t_cplx	c;
 	int		steps;
@@ -45,8 +45,8 @@ int		getcolor(int j, int i, t_info *info)
 	else
 		steps = iter((t_cplx){0, 0}, c, MAX_ITER);
 	if (steps < MAX_ITER)
-		return (create_trgb(0, (steps * (info->color_range + 4)) % 256,
-							(steps * ((2 * info->color_range) % 9 + 4)) % 256,
+		return (create_trgb(0, (steps * (info->color_range + 4)) % 256, \
+							(steps * ((2 * info->color_range) % 9 + 4)) % 256, \
 							(steps * ((5 * info->color_range) % 9 + 4)) % 256));
 	return (create_trgb(0, 0, 0, 0));
 }

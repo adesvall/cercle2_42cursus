@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fract-ol.h"
+#include "fractol.h"
 
-int		exit_and_free(t_info *info, int code)
+int	exit_and_free(t_info *info, int code)
 {
 	if (info->data->img)
 		mlx_destroy_image(info->mlx, info->data->img);
@@ -27,23 +27,24 @@ int		exit_and_free(t_info *info, int code)
 	return (0);
 }
 
-int     handle_error(char *msg, int err, t_info *info)
+int	handle_error(char *msg, int err, t_info *info)
 {
-    printf("Error %d: %s\n", err, msg);
-    return (exit_and_free(info, err));
+	printf("Error %d: %s\n", err, msg);
+	return (exit_and_free(info, err));
 }
 
-int		mouse_press(int button, int x, int y, t_info *info)
+int	mouse_press(int button, int x, int y, t_info *info)
 {
-	// printf("---click !---\n%d : [%d, %d]\n", button, x, y);
 	if (button == 4)
 	{
 		info->zoom *= 1.5;
-		info->offset = add(info->offset, (t_cplx){(x - info->resw / 2) / info->zoom * 0.5, (info->resh / 2 - y) / info->zoom * 0.5});
+		info->offset.re += (x - info->resw / 2) / info->zoom * 0.5;
+		info->offset.im += (info->resh / 2 - y) / info->zoom * 0.5;
 	}
 	else if (button == 5)
 	{
-		info->offset = add(info->offset, (t_cplx){(info->resw / 2 - x) / info->zoom , (y - info->resh / 2) / info->zoom });
+		info->offset.re += (info->resw / 2 - x) / info->zoom;
+		info->offset.im += (y - info->resh / 2) / info->zoom;
 		info->zoom /= 2;
 	}
 	create_img(info);
@@ -57,7 +58,7 @@ int		mouse_press(int button, int x, int y, t_info *info)
 #define DOWN 65364
 #define UP 65362
 
-int		get_keypress(int key, t_info *info)
+int	get_keypress(int key, t_info *info)
 {
 	if (key == ESC)
 		exit_and_free(info, 0);
@@ -71,7 +72,6 @@ int		get_keypress(int key, t_info *info)
 		info->offset.im -= info->resh * 0.1 / info->zoom;
 	else if (key == 99)
 		info->color_range = (info->color_range + 1) % 9;
-	// printf("---Appuyation !---\n%d\n", key);
 	create_img(info);
 	mlx_put_image_to_window(info->mlx, info->mlx_win, info->data->img, 0, 0);
 	return (0);

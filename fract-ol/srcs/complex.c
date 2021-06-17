@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fract-ol.h"
+#include "fractol.h"
 
-double  sqlength(t_cplx z)
+double	sqlength(t_cplx z)
 {
 	return (z.re * z.re + z.im * z.im);
 }
@@ -22,9 +22,9 @@ t_cplx	add(t_cplx z1, t_cplx z2)
 	return ((t_cplx){z1.re + z2.re, z1.im + z2.im});
 }
 
-t_cplx  square(t_cplx z)
+t_cplx	square(t_cplx z)
 {
-	t_cplx  res;
+	t_cplx	res;
 
 	res.re = z.re * z.re - z.im * z.im;
 	res.im = 2 * z.re * z.im;

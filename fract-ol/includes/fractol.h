@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fract-ol.h                                         :+:      :+:    :+:   */
+/*   fract_ol.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACT_OL_H
-# define FRACT_OL_H
+#ifndef FRACTOL_H
+# define FRACTOL_H
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -24,13 +24,13 @@
 # define IMG_FAIL 2
 # define WINDOW_FAIL 3
 
-typedef struct	s_cplx
+typedef struct s_cplx
 {
 	double	re;
 	double	im;
 }				t_cplx;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	void	*img;
 	char	*addr;
@@ -41,24 +41,24 @@ typedef struct	s_data
 	int		h;
 }				t_data;
 
-typedef struct  s_info
+typedef struct s_info
 {
-    void    *mlx;
+	void	*mlx;
 	int		resw;
 	int		resh;
-    void    *mlx_win;
+	void	*mlx_win;
 	t_data	*data;
 	double	zoom;
 	t_cplx	offset;
 	int		color_range;
 	t_cplx	*julia;
-}               t_info;
+}				t_info;
 
 int		ft_strcmp(const char *s1, const char *s2);
 double	ft_atod(const char *str);
 
-void    create_img(t_info *info);
-double  sqlength(t_cplx z);
+void	create_img(t_info *info);
+double	sqlength(t_cplx z);
 t_cplx	add(t_cplx z1, t_cplx z2);
 t_cplx	next_iter(t_cplx z, t_cplx c);
 int		getcolor(int j, int i, t_info *info);
@@ -67,6 +67,6 @@ int		mouse_press(int button, int x, int y, t_info *info);
 int		get_keypress(int key, t_info *info);
 
 int		exit_and_free(t_info *info, int code);
-int     handle_error(char *msg, int err, t_info *info);
+int		handle_error(char *msg, int err, t_info *info);
 
 #endif

@@ -1,4 +1,4 @@
-NAME		= fract-ol
+NAME		= fractol
 
 SRCS		= main.c create_img.c complex.c get_color.c events.c utils.c
 
@@ -6,7 +6,7 @@ SRCSS		= ${addprefix srcs/, ${SRCS}}
 
 OBJS		= ${SRCSS:.c=.o}
 
-HEADERS		= includes/fract-ol.h
+HEADERS		= includes/fractol.h
 
 OPENGL		= -lXext -lX11 -lm -lbsd
 CFLAGS		= -Wall -Wextra -Werror -Iincludes -Imlx_linux -O3

@@ -10,33 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fract-ol.h"
+#include "fractol.h"
 
-int     ft_strlen(const char *s)
+int	ft_strlen(const char *s)
 {
-    int i;
+	int	i;
 
-    i=0;
-    while (s[i])
-        i++;
-    return (i);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }
 
-int		ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!s1 || !s2)
 		return (1);
 	while (s1[i] && s1[i] == s2[i])
 		i++;
-	return (((unsigned char*)s1)[i] - ((unsigned char*)s2)[i]);
+	return (((unsigned char *) s1)[i] - ((unsigned char *) s2)[i]);
 }
 
-int		ft_isin(char c, const char *str)
+int	ft_isin(char c, const char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!str)
@@ -50,7 +50,7 @@ int		ft_isin(char c, const char *str)
 	return (0);
 }
 
-int		ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	int	res;
 	int	i;
@@ -94,8 +94,9 @@ double	ft_atod(const char *str)
 	int		afterdot;
 
 	res = (double)ft_atoi(str);
-	if ((afterdot = ft_isin('.', str)) != 0)
-		res += getsign(str) * (double)ft_atoi(&str[afterdot])
+	afterdot = ft_isin('.', str);
+	if (afterdot != 0)
+		res += getsign(str) * (double)ft_atoi(&str[afterdot]) \
 						/ pow(10, ft_strlen(&str[afterdot]));
 	return (res);
 }
